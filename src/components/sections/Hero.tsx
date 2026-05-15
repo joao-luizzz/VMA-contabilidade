@@ -1,81 +1,151 @@
-import React from 'react';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+"use client";
+
+import React, { useEffect, useRef } from 'react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+
+const stats = [
+  { value: '+150', label: 'Clientes Ativos' },
+  { value: '15+', label: 'Anos de Mercado' },
+  { value: '98%', label: 'Satisfação' },
+  { value: 'R$50M+', label: 'Em Economia Fiscal' },
+];
 
 export const Hero = () => {
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full -z-10">
-        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-3xl" />
-      </div>
+    <section
+      id="inicio"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden grid-bg noise-overlay"
+      style={{ background: 'var(--background)' }}
+    >
+      {/* Glowing orbs */}
+      <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(200,151,58,0.08) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(29,52,97,0.6) 0%, transparent 70%)' }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-4 py-2 rounded-full text-accent text-sm font-semibold">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-            </span>
-            Excelência em Contabilidade Estratégica
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-primary dark:text-white leading-[1.1]">
-            Transformamos seus <span className="text-accent italic">Números</span> em Resultados.
-          </h1>
-          
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
-            A VMA Contabilidade oferece soluções inteligentes para empresas que buscam crescimento sólido e conformidade fiscal impecável.
-          </p>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <button className="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary-light transition-all shadow-xl shadow-primary/20 group">
-              Começar Agora
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="border border-slate-200 dark:border-slate-800 px-8 py-4 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-slate-900 transition-all">
-              Ver Serviços
-            </button>
-          </div>
-
-          <div className="grid grid-cols-2 gap-6 pt-8 border-t border-slate-100 dark:border-slate-800">
-            <div className="flex items-center gap-2 text-sm font-medium text-slate-500">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-              Suporte Personalizado
+          {/* Left content */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest"
+              style={{ background: 'rgba(200,151,58,0.12)', border: '1px solid rgba(200,151,58,0.25)', color: '#C8973A' }}>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#C8973A' }}></span>
+                <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: '#C8973A' }}></span>
+              </span>
+              Excelência em Contabilidade Estratégica
             </div>
-            <div className="flex items-center gap-2 text-sm font-medium text-slate-500">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-              Tecnologia de Ponta
-            </div>
-          </div>
-        </div>
 
-        <div className="relative hidden lg:block animate-in fade-in zoom-in duration-1000">
-          <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white dark:border-slate-900 transform rotate-2 hover:rotate-0 transition-transform duration-500">
-            {/* I will use a placeholder logic or a generated image later if needed, 
-                for now a stylish div with a gradient and pattern */}
-            <div className="aspect-[4/5] bg-gradient-to-br from-primary to-primary-light flex items-center justify-center p-12">
-              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                   <ShieldCheck className="w-12 h-12 text-accent" />
+            <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight text-white">
+              Sua empresa{' '}
+              <span className="text-gradient">crescendo</span>{' '}
+              com segurança fiscal.
+            </h1>
+
+            <p className="text-lg leading-relaxed max-w-lg" style={{ color: '#8A9BB5', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+              A VMA Contabilidade oferece soluções estratégicas para empresas que buscam crescimento sólido, conformidade fiscal impecável e mais tempo para focar no que importa.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <a href="#contato" className="btn-primary px-8 py-4 flex items-center gap-2 text-sm">
+                Falar com Especialista
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a href="#servicos" className="btn-outline px-8 py-4 flex items-center gap-2 text-sm">
+                Nossos Serviços
+              </a>
+            </div>
+
+            {/* Trust badges */}
+            <div className="flex flex-wrap items-center gap-6 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              {['CRC Certificado', 'LGPD Compliance', 'Sigiloso'].map((badge, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <svg className="w-4 h-4" style={{ color: '#C8973A' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm font-medium" style={{ color: '#8A9BB5' }}>{badge}</span>
                 </div>
-                <div className="text-4xl font-bold text-white tracking-tighter italic">VMA</div>
-                <div className="text-sm uppercase tracking-[0.3em] text-white/60">Contabilidade</div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: visual card stack */}
+          <div className="relative hidden lg:flex justify-center items-center">
+            <div className="animate-float">
+              {/* Main card */}
+              <div className="relative w-80 rounded-2xl p-8 text-center"
+                style={{
+                  background: 'linear-gradient(145deg, #112240, #1D3461)',
+                  border: '1px solid rgba(200,151,58,0.2)',
+                  boxShadow: '0 32px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'
+                }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center"
+                  style={{ background: 'rgba(200,151,58,0.15)' }}>
+                  <ShieldCheck className="w-8 h-8" style={{ color: '#C8973A' }} />
+                </div>
+                <div className="text-5xl font-bold mb-1 text-gradient font-display">VMA</div>
+                <div className="text-xs uppercase tracking-[0.4em]" style={{ color: '#8A9BB5' }}>Contabilidade</div>
+
+                <div className="mt-8 grid grid-cols-2 gap-4">
+                  {stats.slice(0, 2).map((s, i) => (
+                    <div key={i} className="p-3 rounded-xl text-left" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                      <div className="text-xl font-bold text-white">{s.value}</div>
+                      <div className="text-[10px] uppercase tracking-wider mt-0.5" style={{ color: '#8A9BB5' }}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Floating badge */}
+              <div className="absolute -bottom-6 -right-10 px-5 py-4 rounded-xl"
+                style={{
+                  background: '#C8973A',
+                  boxShadow: '0 16px 32px rgba(200,151,58,0.4)'
+                }}>
+                <div className="text-2xl font-bold text-primary">98%</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-primary/70">Satisfação</div>
+              </div>
+
+              {/* Floating badge 2 */}
+              <div className="absolute -top-4 -left-8 px-5 py-4 rounded-xl"
+                style={{
+                  background: '#112240',
+                  border: '1px solid rgba(200,151,58,0.25)',
+                  boxShadow: '0 16px 32px rgba(0,0,0,0.4)'
+                }}>
+                <div className="text-2xl font-bold text-white">15+</div>
+                <div className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#8A9BB5' }}>Anos de Exp.</div>
               </div>
             </div>
           </div>
-          {/* Decorative stats card */}
-          <div className="absolute -bottom-6 -left-6 z-20 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 animate-bounce-slow">
-            <div className="text-3xl font-bold text-primary dark:text-white">+150</div>
-            <div className="text-xs text-slate-500 uppercase tracking-wider">Clientes Ativos</div>
-          </div>
         </div>
+
+        {/* Stats bar */}
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden"
+          style={{ background: 'rgba(200,151,58,0.15)' }}>
+          {stats.map((s, i) => (
+            <div key={i} className="py-8 px-8 text-center"
+              style={{ background: 'rgba(17,34,64,0.95)' }}>
+              <div className="text-3xl font-bold text-gradient mb-1">{s.value}</div>
+              <div className="text-xs uppercase tracking-widest font-medium" style={{ color: '#8A9BB5' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll cue */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+        <span className="text-xs uppercase tracking-widest" style={{ color: '#8A9BB5' }}>Scroll</span>
+        <ChevronDown className="w-4 h-4 animate-bounce" style={{ color: '#C8973A' }} />
       </div>
     </section>
   );
 };
 
-const ShieldCheck = ({ className }: { className?: string }) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+const ShieldCheck = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
+  <svg className={className} style={style} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
 );

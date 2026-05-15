@@ -1,53 +1,84 @@
 import React from 'react';
-import { ShieldCheck, Instagram, Linkedin, Facebook } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Linkedin, Facebook } from 'lucide-react';
+
+const footerLinks = {
+  Serviços: ['Assessoria Contábil', 'Planejamento Tributário', 'Gestão de Folha', 'Consultoria', 'Abertura de Empresa'],
+  Empresa: ['Sobre Nós', 'Nossa Equipe', 'Blog', 'Clientes', 'Parceiros'],
+  Legal: ['Política de Privacidade', 'Termos de Uso', 'LGPD'],
+};
 
 export const Footer = () => {
   return (
-    <footer className="bg-primary text-white py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-2 space-y-6">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-8 h-8 text-accent" />
-              <span className="text-2xl font-bold tracking-tighter">
-                VMA <span className="font-light text-accent">Contabilidade</span>
-              </span>
+    <footer style={{ background: 'var(--background)', borderTop: '1px solid rgba(200,151,58,0.12)' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+
+          {/* Brand col */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm"
+                style={{ background: 'linear-gradient(135deg, #C8973A, #E8B45A)', color: '#0A1628' }}>
+                VMA
+              </div>
+              <div>
+                <div className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>VMA Contabilidade</div>
+                <div className="text-[10px] uppercase tracking-widest" style={{ color: '#8A9BB5' }}>Desde 2009</div>
+              </div>
             </div>
-            <p className="text-slate-400 max-w-sm leading-relaxed">
-              Sua parceira estratégica em contabilidade e consultoria empresarial. 
-              Compromisso com a precisão, ética e o crescimento do seu negócio.
+
+            <p className="text-sm leading-relaxed" style={{ color: '#8A9BB5', fontWeight: 300, maxWidth: '280px' }}>
+              Transformamos números em resultados concretos para empresas que querem crescer com segurança e inteligência fiscal.
             </p>
-            <div className="flex gap-4">
+
+            <div className="space-y-3">
+              {[
+                { icon: Phone, text: '+55 (11) 9999-9999' },
+                { icon: Mail, text: 'contato@vma.com.br' },
+                { icon: MapPin, text: 'Av. Paulista, 1000 — SP' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 text-sm" style={{ color: '#8A9BB5' }}>
+                  <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: '#C8973A' }} />
+                  {item.text}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-3">
               {[Instagram, Linkedin, Facebook].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors">
-                  <Icon className="w-5 h-5" />
+                <a key={i} href="#" className="w-9 h-9 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                  style={{ background: 'rgba(200,151,58,0.1)', border: '1px solid rgba(200,151,58,0.2)', color: '#C8973A' }}>
+                  <Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
           </div>
-          
-          <div>
-            <h4 className="font-bold text-lg mb-6">Links Rápidos</h4>
-            <ul className="space-y-4 text-slate-400">
-              <li><a href="#inicio" className="hover:text-accent transition-colors">Início</a></li>
-              <li><a href="#servicos" className="hover:text-accent transition-colors">Serviços</a></li>
-              <li><a href="#sobre" className="hover:text-accent transition-colors">Sobre Nós</a></li>
-              <li><a href="#contato" className="hover:text-accent transition-colors">Fale Conosco</a></li>
-            </ul>
-          </div>
 
-          <div>
-            <h4 className="font-bold text-lg mb-6">Legal</h4>
-            <ul className="space-y-4 text-slate-400">
-              <li><a href="#" className="hover:text-accent transition-colors">Políticas de Privacidade</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Termos de Uso</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Compliance</a></li>
-            </ul>
-          </div>
+          {/* Link cols */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h4 className="text-white font-bold text-sm mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h4>
+              <ul className="space-y-3">
+                {links.map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-sm transition-colors hover:text-[#C8973A]" style={{ color: '#8A9BB5' }}>
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        
-        <div className="pt-8 border-t border-white/10 text-center text-sm text-slate-500">
-          <p>© {new Date().getFullYear()} VMA Contabilidade. Todos os direitos reservados.</p>
+
+        {/* Bottom bar */}
+        <div className="mt-14 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <p className="text-xs" style={{ color: '#8A9BB5' }}>
+            © {new Date().getFullYear()} VMA Contabilidade. Todos os direitos reservados.
+          </p>
+          <p className="text-xs" style={{ color: '#8A9BB5' }}>
+            CRC/SP — Registro Ativo
+          </p>
         </div>
       </div>
     </footer>

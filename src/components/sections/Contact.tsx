@@ -1,8 +1,23 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Send, Phone, Mail, MapPin, Loader2, CheckCircle } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Loader2, CheckCircle, ArrowUpRight } from 'lucide-react';
 import { useLeads } from '@/hooks/useLeads';
+
+const contactInfo = [
+  { icon: Phone, label: "Telefone", value: "+55 (11) 9999-9999", href: "tel:+5511999999999" },
+  { icon: Mail, label: "E-mail", value: "contato@vma.com.br", href: "mailto:contato@vma.com.br" },
+  { icon: MapPin, label: "Endereço", value: "Av. Paulista, 1000 — São Paulo, SP", href: "#" },
+];
+
+const subjects = [
+  'Abertura de Empresa',
+  'Migração de MEI/ME',
+  'Consultoria Tributária',
+  'Gestão de Folha',
+  'Auditoria',
+  'Outros',
+];
 
 export const Contact = () => {
   const { submitLead, loading, error, success } = useLeads();
@@ -21,121 +36,189 @@ export const Contact = () => {
     }
   };
 
-  return (
-    <section id="contato" className="py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-accent font-bold tracking-widest uppercase text-sm">Entre em Contato</h2>
-              <p className="text-4xl md:text-5xl font-bold text-primary dark:text-white tracking-tight leading-tight">
-                Pronto para levar seu negócio ao próximo nível?
-              </p>
-              <p className="text-slate-500 text-lg max-w-lg">
-                Fale com um de nossos especialistas e descubra como podemos otimizar sua contabilidade.
-              </p>
-            </div>
+  const inputClass = `
+    w-full px-4 py-3.5 rounded-xl text-white text-sm placeholder-[#8A9BB5]
+    focus:outline-none focus:ring-2 focus:ring-[#C8973A]/40 transition-all
+    bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)]
+    hover:border-[rgba(200,151,58,0.3)]
+  `;
 
-            <div className="space-y-6">
-              {[
-                { icon: Phone, label: "Telefone", value: "+55 (11) 9999-9999" },
-                { icon: Mail, label: "E-mail", value: "contato@vma.com.br" },
-                { icon: MapPin, label: "Endereço", value: "Av. Paulista, 1000 - São Paulo, SP" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-                    <item.icon className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{item.label}</div>
-                    <div className="font-semibold text-primary dark:text-white">{item.value}</div>
-                  </div>
+  return (
+    <section id="contato" className="py-28 relative overflow-hidden" style={{ background: 'var(--background)' }}>
+      {/* BG accent */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(200,151,58,0.06) 0%, transparent 70%)' }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4"
+            style={{ color: '#C8973A' }}>
+            <span className="w-8 h-px" style={{ background: '#C8973A' }} />
+            Entre em Contato
+            <span className="w-8 h-px" style={{ background: '#C8973A' }} />
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Pronto para o próximo nível?
+          </h2>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: '#8A9BB5', fontWeight: 300 }}>
+            Fale com um especialista e descubra como a VMA pode transformar a gestão contábil da sua empresa.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
+
+          {/* Left: info + cards */}
+          <div className="lg:col-span-2 space-y-6">
+            {contactInfo.map((item, i) => (
+              <a
+                key={i}
+                href={item.href}
+                className="flex items-center gap-5 p-5 rounded-2xl group transition-all"
+                style={{
+                  background: 'rgba(17,34,64,0.7)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                }}
+              >
+                <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center transition-all group-hover:scale-110"
+                  style={{ background: 'rgba(200,151,58,0.12)' }}>
+                  <item.icon className="w-5 h-5" style={{ color: '#C8973A' }} />
                 </div>
-              ))}
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: '#8A9BB5' }}>
+                    {item.label}
+                  </div>
+                  <div className="font-semibold text-white text-sm truncate">{item.value}</div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: '#C8973A' }} />
+              </a>
+            ))}
+
+            {/* Horário */}
+            <div className="p-6 rounded-2xl"
+              style={{ background: 'linear-gradient(135deg, rgba(200,151,58,0.1), rgba(200,151,58,0.04))', border: '1px solid rgba(200,151,58,0.2)' }}>
+              <div className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#C8973A' }}>
+                Horário de Atendimento
+              </div>
+              <div className="space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span style={{ color: '#8A9BB5' }}>Segunda — Sexta</span>
+                  <span className="font-semibold text-white">08h — 18h</span>
+                </div>
+                <div className="flex justify-between">
+                  <span style={{ color: '#8A9BB5' }}>Sábado</span>
+                  <span className="font-semibold text-white">09h — 13h</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-700">
+          {/* Right: form */}
+          <div className="lg:col-span-3 rounded-2xl p-8 md:p-10"
+            style={{
+              background: 'rgba(17,34,64,0.7)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              backdropFilter: 'blur(20px)',
+            }}>
+
             {success ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center space-y-4 animate-in fade-in zoom-in duration-500">
-                <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-10 h-10 text-emerald-600" />
+              <div className="flex flex-col items-center justify-center py-16 text-center space-y-5">
+                <div className="w-20 h-20 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(52,211,153,0.1)' }}>
+                  <CheckCircle className="w-10 h-10" style={{ color: '#34D399' }} />
                 </div>
-                <h3 className="text-2xl font-bold text-primary dark:text-white">Mensagem Enviada!</h3>
-                <p className="text-slate-500">Agradecemos o contato. Nossa equipe retornará em breve.</p>
-                <button 
+                <h3 className="text-2xl font-bold text-white">Mensagem Enviada!</h3>
+                <p style={{ color: '#8A9BB5' }}>Nossa equipe retornará em até 1 dia útil.</p>
+                <button
                   onClick={() => window.location.reload()}
-                  className="text-accent font-semibold hover:underline"
-                >
+                  className="text-sm font-semibold hover:underline"
+                  style={{ color: '#C8973A' }}>
                   Enviar outra mensagem
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white">Envie sua mensagem</h3>
+                  <p className="text-sm mt-1" style={{ color: '#8A9BB5' }}>Responderemos em até 24 horas.</p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-5">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Nome Completo</label>
-                    <input 
+                    <label className="text-xs font-bold uppercase tracking-widest" style={{ color: '#8A9BB5' }}>
+                      Nome Completo *
+                    </label>
+                    <input
                       required
-                      type="text" 
+                      type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Seu nome"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+                      className={inputClass}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">E-mail</label>
-                    <input 
+                    <label className="text-xs font-bold uppercase tracking-widest" style={{ color: '#8A9BB5' }}>
+                      E-mail *
+                    </label>
+                    <input
                       required
-                      type="email" 
+                      type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      placeholder="email@exemplo.com"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="email@empresa.com"
+                      className={inputClass}
                     />
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Assunto</label>
-                  <select 
+                  <label className="text-xs font-bold uppercase tracking-widest" style={{ color: '#8A9BB5' }}>
+                    Assunto
+                  </label>
+                  <select
                     value={formData.subject}
-                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className={inputClass}
+                    style={{ appearance: 'auto', colorScheme: 'dark' }}
                   >
-                    <option>Abertura de Empresa</option>
-                    <option>Migração de MEI/ME</option>
-                    <option>Consultoria Tributária</option>
-                    <option>Outros</option>
+                    {subjects.map((s) => <option key={s}>{s}</option>)}
                   </select>
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Mensagem</label>
-                  <textarea 
+                  <label className="text-xs font-bold uppercase tracking-widest" style={{ color: '#8A9BB5' }}>
+                    Mensagem *
+                  </label>
+                  <textarea
                     required
                     rows={4}
                     value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    placeholder="Como podemos ajudar?"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Descreva como podemos ajudar..."
+                    className={inputClass}
+                    style={{ resize: 'none' }}
                   />
                 </div>
 
                 {error && (
-                  <p className="text-sm text-red-500 font-medium">{error}</p>
+                  <p className="text-sm font-medium px-4 py-3 rounded-xl" style={{ color: '#F87171', background: 'rgba(248,113,113,0.08)' }}>
+                    {error}
+                  </p>
                 )}
 
-                <button 
+                <button
                   disabled={loading}
                   type="submit"
-                  className="w-full bg-primary text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary-light transition-all shadow-xl shadow-primary/20 group disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="btn-primary w-full py-4 flex items-center justify-center gap-2 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
                     <>
                       Enviar Mensagem
-                      <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <Send className="w-4 h-4" />
                     </>
                   )}
                 </button>
