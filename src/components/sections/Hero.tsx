@@ -74,24 +74,24 @@ export const Hero = () => {
           <div className="relative hidden lg:flex justify-center items-center">
             <div className="animate-float">
               {/* Main card */}
-              <div className="relative w-80 rounded-2xl p-8 text-center"
+              <div className="relative w-80 rounded-2xl p-8 text-center shadow-2xl transition-all duration-500"
                 style={{
-                  background: 'linear-gradient(145deg, #112240, #1D3461)',
+                  background: 'var(--surface)',
                   border: '1px solid rgba(200,151,58,0.2)',
-                  boxShadow: '0 32px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'
+                  boxShadow: '0 32px 64px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
                 }}>
                 <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center"
                   style={{ background: 'rgba(200,151,58,0.15)' }}>
                   <ShieldCheck className="w-8 h-8" style={{ color: '#C8973A' }} />
                 </div>
                 <div className="text-5xl font-bold mb-1 text-gradient font-display">VMA</div>
-                <div className="text-xs uppercase tracking-[0.4em]" style={{ color: '#8A9BB5' }}>Contabilidade</div>
+                <div className="text-xs uppercase tracking-[0.4em]" style={{ color: 'var(--text-muted)' }}>Contabilidade</div>
 
                 <div className="mt-8 grid grid-cols-2 gap-4">
                   {stats.slice(0, 2).map((s, i) => (
-                    <div key={i} className="p-3 rounded-xl text-left" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                      <div className="text-xl font-bold text-white">{s.value}</div>
-                      <div className="text-[10px] uppercase tracking-wider mt-0.5" style={{ color: '#8A9BB5' }}>{s.label}</div>
+                    <div key={i} className="p-3 rounded-xl text-left" style={{ background: 'rgba(200,151,58,0.08)' }}>
+                      <div className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>{s.value}</div>
+                      <div className="text-[10px] uppercase tracking-wider mt-0.5" style={{ color: 'var(--text-muted)' }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
@@ -110,12 +110,12 @@ export const Hero = () => {
               {/* Floating badge 2 */}
               <div className="absolute -top-4 -left-8 px-5 py-4 rounded-xl"
                 style={{
-                  background: '#112240',
+                  background: 'var(--surface)',
                   border: '1px solid rgba(200,151,58,0.25)',
-                  boxShadow: '0 16px 32px rgba(0,0,0,0.4)'
+                  boxShadow: '0 16px 32px rgba(0,0,0,0.1)'
                 }}>
-                <div className="text-2xl font-bold text-white">15+</div>
-                <div className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#8A9BB5' }}>Anos de Exp.</div>
+                <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>15+</div>
+                <div className="text-[10px] font-medium uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Anos de Exp.</div>
               </div>
             </div>
           </div>

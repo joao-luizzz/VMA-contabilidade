@@ -46,9 +46,13 @@ export const About = () => {
               
               {/* Floating experience box */}
               <div className="absolute bottom-8 left-8 right-8 p-6 rounded-xl backdrop-blur-md z-20"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                style={{ 
+                  background: 'var(--surface)', 
+                  opacity: 0.9,
+                  border: '1px solid rgba(200, 151, 58, 0.2)' 
+                }}>
                 <div className="text-4xl font-bold text-gradient mb-1">15+</div>
-                <div className="text-sm font-semibold uppercase tracking-widest text-white">Anos transformando empresas</div>
+                <div className="text-sm font-semibold uppercase tracking-widest" style={{ color: 'var(--foreground)' }}>Anos transformando empresas</div>
               </div>
             </div>
             

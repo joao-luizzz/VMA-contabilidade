@@ -84,28 +84,28 @@ const CATEGORY_CONFIG: Record<
 > = {
     federal: {
         label: "Federal",
-        color: "#93C5FD",
+        color: "#3B82F6",
         bg: "rgba(56,130,246,0.12)",
         border: "rgba(56,130,246,0.25)",
         dot: "#3B82F6",
     },
     estadual: {
         label: "Estadual",
-        color: "#86EFAC",
+        color: "#16A34A",
         bg: "rgba(34,197,94,0.1)",
         border: "rgba(34,197,94,0.25)",
         dot: "#22C55E",
     },
     municipal: {
         label: "Municipal",
-        color: "#FDE68A",
+        color: "#CA8A04",
         bg: "rgba(234,179,8,0.1)",
         border: "rgba(234,179,8,0.25)",
         dot: "#EAB308",
     },
     trabalhista: {
         label: "Trabalhista",
-        color: "#F9A8D4",
+        color: "#DB2777",
         bg: "rgba(236,72,153,0.1)",
         border: "rgba(236,72,153,0.25)",
         dot: "#EC4899",
@@ -420,8 +420,8 @@ export const TaxCalendar = () => {
 
                         {/* Selected day events */}
                         <div style={{
-                            background: "rgba(17,34,64,0.7)",
-                            border: "1px solid rgba(255,255,255,0.07)",
+                            background: "var(--surface)",
+                            border: "1px solid rgba(200, 151, 58, 0.15)",
                             borderRadius: "20px",
                             padding: "20px",
                         }}>
@@ -493,7 +493,7 @@ export const TaxCalendar = () => {
                         {/* Upcoming (only current month) */}
                         {upcoming.length > 0 && (
                             <div style={{
-                                background: "rgba(17,34,64,0.7)",
+                                background: "var(--surface)",
                                 border: "1px solid rgba(200,151,58,0.2)",
                                 borderRadius: "20px",
                                 padding: "20px",

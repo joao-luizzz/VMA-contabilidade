@@ -9,6 +9,7 @@ import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/layout/Footer';
 import { CltPjCalculator } from '@/components/sections/CltPjCalculator';
 import { TaxCalendar } from '@/components/sections/Taxcalendar';
+import { TrustedBy } from '@/components/sections/TrustedBy'
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <Services />
         <TaxCalendar />
         <CltPjCalculator />
+        <TrustedBy />
         <Contact />
       </main>
       <Footer />

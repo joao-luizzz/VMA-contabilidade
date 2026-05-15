@@ -9,11 +9,23 @@ export const metadata: Metadata = {
   authors: [{ name: "VMA Contabilidade" }],
   openGraph: {
     title: "VMA Contabilidade | Excelência em Contabilidade Estratégica",
-    description: "Soluções inteligentes de contabilidade e consultoria empresarial.",
-    url: "https://vma.com.br",
+    description: "Soluções inteligentes de contabilidade, planejamento tributário e consultoria empresarial para o seu negócio.",
+    url: "https://vmacontabilidade.com.br",
     siteName: "VMA Contabilidade",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VMA Contabilidade",
+      },
+    ],
     locale: "pt_BR",
     type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

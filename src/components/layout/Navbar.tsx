@@ -32,26 +32,28 @@ export const Navbar = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-18 py-4">
-
-            {/* Logo */}
-            <a href="#inicio" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm"
-                style={{ background: 'linear-gradient(135deg, #C8973A, #E8B45A)', color: '#0A1628' }}>
-                VMA
-              </div>
-              <div>
-                <div style={{ color: 'var(--foreground)', fontWeight: 'bold', fontSize: '14px', fontFamily: 'var(--font-display)' }}>
+          <div className="grid grid-cols-2 md:grid-cols-3 items-center h-18 py-4">
+            
+            {/* Left: Logo */}
+            <div className="flex justify-start">
+              <a href="#inicio" className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm"
+                  style={{ background: 'linear-gradient(135deg, #C8973A, #E8B45A)', color: '#0A1628' }}>
                   VMA
                 </div>
-                <div className="text-[10px] uppercase tracking-widest leading-tight" style={{ color: 'var(--text-muted)' }}>
-                  Contabilidade
+                <div className="hidden sm:block">
+                  <div style={{ color: 'var(--foreground)', fontWeight: 'bold', fontSize: '14px', fontFamily: 'var(--font-display)' }}>
+                    VMA
+                  </div>
+                  <div className="text-[10px] uppercase tracking-widest leading-tight" style={{ color: 'var(--text-muted)' }}>
+                    Contabilidade
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
 
-            {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            {/* Center: Desktop nav */}
+            <nav className="hidden md:flex items-center justify-center gap-8">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -64,26 +66,28 @@ export const Navbar = () => {
               ))}
             </nav>
 
-            {/* CTA & Theme Toggle */}
-            <div className="hidden md:flex items-center gap-4">
-              <ThemeToggle />
-              <a href="tel:+5511947470884" className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-                <Phone className="w-4 h-4" style={{ color: '#C8973A' }} />
-                (11) 94747-0884
-              </a>
-              <a href="#contato" className="btn-primary px-5 py-2.5 text-sm">
-                Falar Conosco
-              </a>
-            </div>
+            {/* Right: CTA, Theme Toggle & Mobile Toggle */}
+            <div className="flex items-center justify-end gap-4">
+              <div className="hidden md:flex items-center gap-4">
+                <ThemeToggle />
+                <a href="tel:+5511947470884" className="flex items-center gap-1.5 text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
+                  <Phone className="w-4 h-4" style={{ color: '#C8973A' }} />
+                  <span className="hidden lg:inline">(11) 94747-0884</span>
+                </a>
+                <a href="#contato" className="btn-primary px-5 py-2.5 text-sm whitespace-nowrap">
+                  Falar Conosco
+                </a>
+              </div>
 
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 rounded-lg transition-colors"
-              style={{ color: 'var(--text-muted)' }}
-            >
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              {/* Mobile toggle button */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="md:hidden p-2 rounded-lg transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </header>
