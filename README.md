@@ -124,6 +124,13 @@ src/
 ```
 
 ---
++
++## 👥 Equipe
++
++- **Lucas Lucachak** — Full Stack Developer
++- **João Luiz** — QA & Documentation
++
+ ---
 
 <p align="center">
   <sub>VMA Contabilidade - Excelência em Gestão Empresarial.</sub>
