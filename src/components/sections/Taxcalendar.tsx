@@ -209,7 +209,7 @@ export const TaxCalendar = () => {
         <section
             id="calendario"
             style={{
-                background: "linear-gradient(180deg, #0A1628 0%, #070F1F 100%)",
+                background: "var(--background)",
                 padding: "80px 0",
                 position: "relative",
                 overflow: "hidden",
@@ -237,22 +237,22 @@ export const TaxCalendar = () => {
                         <span style={{ width: "32px", height: "1px", background: "#C8973A" }} />
                     </div>
                     <h2 style={{
-                        fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#fff",
+                        fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "var(--foreground)",
                         margin: "0 0 12px", lineHeight: 1.1, fontFamily: "var(--font-display)",
                     }}>
                         Nunca perca um prazo fiscal.
                     </h2>
-                    <p style={{ color: "#8A9BB5", fontSize: "16px", maxWidth: "480px", margin: "0 auto" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "16px", maxWidth: "480px", margin: "0 auto" }}>
                         Acompanhe todas as obrigações tributárias e contábeis do mês em um só lugar.
                     </p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "24px", alignItems: "start" }}>
+                <div className="flex flex-col lg:grid lg:grid-cols-[1fr_320px] gap-6 items-start">
 
                     {/* ── CALENDAR ── */}
                     <div style={{
-                        background: "rgba(17,34,64,0.7)",
-                        border: "1px solid rgba(255,255,255,0.07)",
+                        background: "var(--surface)",
+                        border: "1px solid rgba(200, 151, 58, 0.1)",
                         borderRadius: "20px",
                         padding: "24px",
                     }}>
@@ -270,10 +270,10 @@ export const TaxCalendar = () => {
                             </button>
 
                             <div style={{ textAlign: "center" }}>
-                                <div style={{ fontSize: "18px", fontWeight: 700, color: "#fff", fontFamily: "var(--font-display)" }}>
+                                <div style={{ fontSize: "18px", fontWeight: 700, color: "var(--foreground)", fontFamily: "var(--font-display)" }}>
                                     {MONTHS[currentMonth]}
                                 </div>
-                                <div style={{ fontSize: "12px", color: "#8A9BB5" }}>{currentYear}</div>
+                                <div style={{ fontSize: "12px", color: "var(--text-muted)" }}>{currentYear}</div>
                             </div>
 
                             <button
@@ -293,7 +293,7 @@ export const TaxCalendar = () => {
                             {WEEKDAYS.map(d => (
                                 <div key={d} style={{
                                     textAlign: "center", fontSize: "11px", fontWeight: 700,
-                                    letterSpacing: "0.06em", color: "#8A9BB5", padding: "4px 0",
+                                    letterSpacing: "0.06em", color: "var(--text-muted)", padding: "4px 0",
                                     textTransform: "uppercase",
                                 }}>
                                     {d}
@@ -302,7 +302,7 @@ export const TaxCalendar = () => {
                         </div>
 
                         {/* Day grid */}
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }} className="animate-in fade-in duration-700">
                             {/* Empty cells */}
                             {Array.from({ length: firstDay }).map((_, i) => (
                                 <div key={`empty-${i}`} />
@@ -344,8 +344,8 @@ export const TaxCalendar = () => {
                                                 : todayDay
                                                     ? "#60A5FA"
                                                     : weekend
-                                                        ? "#4A5568"
-                                                        : "#CBD5E0",
+                                                        ? "rgba(0, 0, 0, 0.2)"
+                                                        : "var(--foreground)",
                                             lineHeight: 1,
                                         }}>
                                             {day}
@@ -416,7 +416,7 @@ export const TaxCalendar = () => {
                     </div>
 
                     {/* ── SIDEBAR ── */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                    <div className="flex flex-col gap-4 w-full">
 
                         {/* Selected day events */}
                         <div style={{
@@ -427,7 +427,7 @@ export const TaxCalendar = () => {
                         }}>
                             <div style={{
                                 fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em",
-                                textTransform: "uppercase", color: "#8A9BB5", marginBottom: "14px",
+                                textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "14px",
                             }}>
                                 {selectedDay
                                     ? `Dia ${selectedDay} — ${MONTHS[currentMonth]}`
@@ -462,7 +462,7 @@ export const TaxCalendar = () => {
                                                 width: "7px", height: "7px", borderRadius: "50%",
                                                 background: cfg.dot, flexShrink: 0,
                                             }} />
-                                            <span style={{ fontSize: "13px", fontWeight: 600, color: "#fff" }}>
+                                            <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)" }}>
                                                 {ev.title}
                                             </span>
                                             <span style={{
@@ -531,7 +531,7 @@ export const TaxCalendar = () => {
                                                 </span>
                                             </div>
                                             <div style={{ flex: 1, minWidth: 0 }}>
-                                                <div style={{ fontSize: "13px", fontWeight: 600, color: "#fff", marginBottom: "2px" }}>
+                                                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)", marginBottom: "2px" }}>
                                                     {ev.title}
                                                 </div>
                                                 <div style={{ fontSize: "11px", color: "#8A9BB5" }}>
@@ -557,10 +557,10 @@ export const TaxCalendar = () => {
                             border: "1px solid rgba(200,151,58,0.25)",
                             textAlign: "center",
                         }}>
-                            <div style={{ fontSize: "14px", fontWeight: 700, color: "#fff", marginBottom: "6px", fontFamily: "var(--font-display)" }}>
+                            <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--foreground)", marginBottom: "6px", fontFamily: "var(--font-display)" }}>
                                 Quer que a gente cuide disso?
                             </div>
-                            <p style={{ fontSize: "12px", color: "#8A9BB5", margin: "0 0 14px" }}>
+                            <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: "0 0 14px" }}>
                                 Nossa equipe gerencia todos os seus prazos fiscais.
                             </p>
                             <a

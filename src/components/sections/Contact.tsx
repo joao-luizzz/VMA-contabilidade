@@ -37,9 +37,9 @@ export const Contact = () => {
   };
 
   const inputClass = `
-    w-full px-4 py-3.5 rounded-xl text-white text-sm placeholder-[#8A9BB5]
+    w-full px-4 py-3.5 rounded-xl text-[var(--foreground)] text-sm placeholder-[var(--text-muted)]
     focus:outline-none focus:ring-2 focus:ring-[#C8973A]/40 transition-all
-    bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)]
+    bg-[var(--surface)] border border-[rgba(200,151,58,0.1)]
     hover:border-[rgba(200,151,58,0.3)]
   `;
 
@@ -59,10 +59,10 @@ export const Contact = () => {
             Entre em Contato
             <span className="w-8 h-px" style={{ background: '#C8973A' }} />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
             Pronto para o próximo nível?
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: '#8A9BB5', fontWeight: 300 }}>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-muted)', fontWeight: 400 }}>
             Fale com um especialista e descubra como a VMA pode transformar a gestão contábil da sua empresa.
           </p>
         </div>
@@ -77,8 +77,8 @@ export const Contact = () => {
                 href={item.href}
                 className="flex items-center gap-5 p-5 rounded-2xl group transition-all"
                 style={{
-                  background: 'rgba(17,34,64,0.7)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'var(--surface)',
+                  border: '1px solid rgba(200, 151, 58, 0.1)',
                 }}
               >
                 <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center transition-all group-hover:scale-110"
@@ -86,10 +86,10 @@ export const Contact = () => {
                   <item.icon className="w-5 h-5" style={{ color: '#C8973A' }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: '#8A9BB5' }}>
+                  <div className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: 'var(--text-muted)' }}>
                     {item.label}
                   </div>
-                  <div className="font-semibold text-white text-sm truncate">{item.value}</div>
+                  <div className="font-semibold text-sm truncate" style={{ color: 'var(--foreground)' }}>{item.value}</div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: '#C8973A' }} />
               </a>
@@ -103,12 +103,12 @@ export const Contact = () => {
               </div>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span style={{ color: '#8A9BB5' }}>Segunda — Sexta</span>
-                  <span className="font-semibold text-white">08h — 18h</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Segunda — Sexta</span>
+                  <span className="font-semibold" style={{ color: 'var(--foreground)' }}>08h — 18h</span>
                 </div>
                 <div className="flex justify-between">
-                  <span style={{ color: '#8A9BB5' }}>Sábado</span>
-                  <span className="font-semibold text-white">09h — 13h</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Sábado</span>
+                  <span className="font-semibold" style={{ color: 'var(--foreground)' }}>09h — 13h</span>
                 </div>
               </div>
             </div>
@@ -117,8 +117,8 @@ export const Contact = () => {
           {/* Right: form */}
           <div className="lg:col-span-3 rounded-2xl p-8 md:p-10"
             style={{
-              background: 'rgba(17,34,64,0.7)',
-              border: '1px solid rgba(255,255,255,0.07)',
+              background: 'var(--surface)',
+              border: '1px solid rgba(200, 151, 58, 0.1)',
               backdropFilter: 'blur(20px)',
             }}>
 
@@ -128,8 +128,8 @@ export const Contact = () => {
                   style={{ background: 'rgba(52,211,153,0.1)' }}>
                   <CheckCircle className="w-10 h-10" style={{ color: '#34D399' }} />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Mensagem Enviada!</h3>
-                <p style={{ color: '#8A9BB5' }}>Nossa equipe retornará em até 1 dia útil.</p>
+                <h3 className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>Mensagem Enviada!</h3>
+                <p style={{ color: 'var(--text-muted)' }}>Nossa equipe retornará em até 1 dia útil.</p>
                 <button
                   onClick={() => window.location.reload()}
                   className="text-sm font-semibold hover:underline"
@@ -140,8 +140,8 @@ export const Contact = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="mb-6">
-                  <h3 className="text-xl font-bold text-white">Envie sua mensagem</h3>
-                  <p className="text-sm mt-1" style={{ color: '#8A9BB5' }}>Responderemos em até 24 horas.</p>
+                  <h3 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>Envie sua mensagem</h3>
+                  <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>Responderemos em até 24 horas.</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-5">
@@ -182,13 +182,14 @@ export const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className={inputClass}
                     style={{ appearance: 'auto', colorScheme: 'dark' }}
+                    style={{ appearance: 'auto' }}
                   >
                     {subjects.map((s) => <option key={s}>{s}</option>)}
                   </select>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest" style={{ color: '#8A9BB5' }}>
+                  <label className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>
                     Mensagem *
                   </label>
                   <textarea

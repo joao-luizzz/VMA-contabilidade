@@ -28,7 +28,7 @@ export const Hero = () => {
 
           {/* Left content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest"
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest opacity-0 reveal"
               style={{ background: 'rgba(200,151,58,0.12)', border: '1px solid rgba(200,151,58,0.25)', color: '#C8973A' }}>
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#C8973A' }}></span>
@@ -37,17 +37,17 @@ export const Hero = () => {
               Excelência em Contabilidade Estratégica
             </div>
 
-            <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight text-white">
+            <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight opacity-0 reveal stagger-1" style={{ color: 'var(--foreground)' }}>
               Sua empresa{' '}
               <span className="text-gradient">crescendo</span>{' '}
               com segurança fiscal.
             </h1>
 
-            <p className="text-lg leading-relaxed max-w-lg" style={{ color: '#8A9BB5', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+            <p className="text-lg leading-relaxed max-w-lg opacity-0 reveal stagger-2" style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-body)', fontWeight: 400 }}>
               A VMA Contabilidade oferece soluções estratégicas para empresas que buscam crescimento sólido, conformidade fiscal impecável e mais tempo para focar no que importa.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap gap-4 pt-2 opacity-0 reveal stagger-3">
               <a href="#contato" className="btn-primary px-8 py-4 flex items-center gap-2 text-sm">
                 Falar com Especialista
                 <ArrowRight className="w-4 h-4" />
@@ -64,7 +64,7 @@ export const Hero = () => {
                   <svg className="w-4 h-4" style={{ color: '#C8973A' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm font-medium" style={{ color: '#8A9BB5' }}>{badge}</span>
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>{badge}</span>
                 </div>
               ))}
             </div>
@@ -125,10 +125,10 @@ export const Hero = () => {
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden"
           style={{ background: 'rgba(200,151,58,0.15)' }}>
           {stats.map((s, i) => (
-            <div key={i} className="py-8 px-8 text-center"
-              style={{ background: 'rgba(17,34,64,0.95)' }}>
+            <div key={i} className="py-8 px-8 text-center opacity-0 reveal"
+              style={{ background: 'var(--surface)', animationDelay: `${0.4 + (i * 0.1)}s` }}>
               <div className="text-3xl font-bold text-gradient mb-1">{s.value}</div>
-              <div className="text-xs uppercase tracking-widest font-medium" style={{ color: '#8A9BB5' }}>{s.label}</div>
+              <div className="text-xs uppercase tracking-widest font-medium" style={{ color: 'var(--text-muted)' }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -136,7 +136,7 @@ export const Hero = () => {
 
       {/* Scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
-        <span className="text-xs uppercase tracking-widest" style={{ color: '#8A9BB5' }}>Scroll</span>
+        <span className="text-xs uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Scroll</span>
         <ChevronDown className="w-4 h-4 animate-bounce" style={{ color: '#C8973A' }} />
       </div>
     </section>

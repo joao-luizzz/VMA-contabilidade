@@ -3,8 +3,18 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "VMA Contabilidade — Excelência em Contabilidade Estratégica",
-  description: "Soluções inteligentes de contabilidade, planejamento tributário e consultoria para empresas que buscam crescimento sólido e conformidade fiscal.",
+  title: "VMA Contabilidade | Excelência em Contabilidade Estratégica",
+  description: "Soluções inteligentes de contabilidade, planejamento tributário e consultoria para empresas que buscam crescimento sólido e conformidade fiscal em São Paulo.",
+  keywords: ["contabilidade", "planejamento tributário", "vma contabilidade", "abertura de empresa", "consultoria financeira"],
+  authors: [{ name: "VMA Contabilidade" }],
+  openGraph: {
+    title: "VMA Contabilidade | Excelência em Contabilidade Estratégica",
+    description: "Soluções inteligentes de contabilidade e consultoria empresarial.",
+    url: "https://vma.com.br",
+    siteName: "VMA Contabilidade",
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

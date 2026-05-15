@@ -306,7 +306,7 @@ export const CltPjCalculator = () => {
                     </p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6">
                     {/* ── CLT COLUMN ── */}
                     <div>
                         {card(
@@ -614,10 +614,10 @@ export const CltPjCalculator = () => {
                                     <button
                                         onClick={() => setShowDetailPJ(!showDetailPJ)}
                                         style={{
-                                            background: "rgba(255,255,255,0.05)",
-                                            border: "1px solid rgba(255,255,255,0.08)",
+                                            background: "var(--surface)",
+                                            border: "1px solid rgba(200, 151, 58, 0.2)",
                                             borderRadius: "8px",
-                                            color: "#8A9BB5",
+                                            color: "var(--text-muted)",
                                             padding: "6px 10px",
                                             cursor: "pointer",
                                             display: "flex",
@@ -648,24 +648,22 @@ export const CltPjCalculator = () => {
 
                 {/* ── VERDICT ── */}
                 <div
+                    className="flex flex-col md:grid md:grid-cols-[auto_1fr_auto] gap-6"
                     style={{
                         marginTop: "24px",
                         borderRadius: "16px",
                         padding: "24px 28px",
                         background: tied
-                            ? "rgba(255,255,255,0.04)"
+                            ? "var(--surface)"
                             : pjWins
-                                ? "rgba(200,151,58,0.08)"
+                                ? "rgba(200,151,58,0.12)"
                                 : "rgba(56,130,246,0.08)",
                         border: `1px solid ${tied
-                                ? "rgba(255,255,255,0.08)"
+                                ? "rgba(200, 151, 58, 0.1)"
                                 : pjWins
                                     ? "rgba(200,151,58,0.3)"
                                     : "rgba(56,130,246,0.3)"
                             }`,
-                        display: "grid",
-                        gridTemplateColumns: "auto 1fr auto",
-                        gap: "20px",
                         alignItems: "center",
                     }}
                 >
@@ -676,7 +674,7 @@ export const CltPjCalculator = () => {
                             height: "48px",
                             borderRadius: "14px",
                             background: tied
-                                ? "rgba(255,255,255,0.07)"
+                                ? "rgba(200, 151, 58, 0.05)"
                                 : pjWins
                                     ? "rgba(200,151,58,0.15)"
                                     : "rgba(56,130,246,0.15)",
@@ -686,7 +684,7 @@ export const CltPjCalculator = () => {
                         }}
                     >
                         {tied ? (
-                            <Minus size={22} color="#8A9BB5" />
+                            <Minus size={22} color="var(--text-muted)" />
                         ) : pjWins ? (
                             <TrendingUp size={22} color="#C8973A" />
                         ) : (
@@ -696,14 +694,14 @@ export const CltPjCalculator = () => {
 
                     {/* Text */}
                     <div>
-                        <div style={{ fontSize: "16px", fontWeight: 700, color: "#fff", marginBottom: "4px", fontFamily: "var(--font-display)" }}>
+                        <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--foreground)", marginBottom: "4px", fontFamily: "var(--font-display)" }}>
                             {tied
                                 ? "As duas opções são praticamente equivalentes"
                                 : pjWins
                                     ? "PJ rende mais no seu cenário"
                                     : "CLT rende mais no seu cenário"}
                         </div>
-                        <div style={{ fontSize: "13px", color: "#8A9BB5" }}>
+                        <div style={{ fontSize: "13px", color: "var(--text-muted)" }}>
                             {tied ? (
                                 "Diferença inferior a R$50/mês. Considere estabilidade, benefícios e perfil profissional."
                             ) : pjWins ? (
@@ -722,14 +720,14 @@ export const CltPjCalculator = () => {
 
                     {/* PJ mínimo */}
                     {pjMinimoEquivalente && (
-                        <div style={{ textAlign: "right", borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: "20px" }}>
-                            <div style={{ fontSize: "11px", color: "#8A9BB5", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
+                        <div className="text-left md:text-right md:border-left border-t md:border-t-0 pt-4 md:pt-0 md:pl-5" style={{ borderColor: "rgba(200,151,58,0.1)" }}>
+                            <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
                                 PJ mínimo para igualar
                             </div>
                             <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8973A", fontFamily: "var(--font-display)" }}>
                                 {fmt(pjMinimoEquivalente)}
                             </div>
-                            <div style={{ fontSize: "11px", color: "#8A9BB5" }}>
+                            <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>
                                 {((pjMinimoEquivalente / salarioBruto - 1) * 100).toFixed(0)}% acima do CLT bruto
                             </div>
                         </div>

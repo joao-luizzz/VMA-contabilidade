@@ -54,16 +54,16 @@ export const Services = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Header */}
-        <div className="mb-16 max-w-2xl">
+        <div className="mb-16 max-w-2xl opacity-0 reveal">
           <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4"
             style={{ color: '#C8973A' }}>
             <span className="w-8 h-px" style={{ background: '#C8973A' }} />
             Nossas Especialidades
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{ color: 'var(--foreground)' }}>
             Soluções completas para cada fase do seu negócio
           </h2>
-          <p className="text-lg" style={{ color: '#8A9BB5', fontWeight: 300 }}>
+          <p className="text-lg" style={{ color: 'var(--text-muted)', fontWeight: 400 }}>
             Um portfólio robusto de serviços contábeis e consultivos, desenhados para empresas que querem crescer com solidez.
           </p>
         </div>
@@ -73,20 +73,21 @@ export const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className={`card-hover group relative p-8 rounded-2xl cursor-pointer ${service.highlight ? 'ring-1 ring-[#C8973A]/30' : ''}`}
+              className={`card-hover group relative p-8 rounded-2xl cursor-pointer opacity-0 reveal ${service.highlight ? 'ring-1 ring-[#C8973A]/30' : ''}`}
               style={{
                 background: service.highlight
                   ? 'linear-gradient(145deg, rgba(200,151,58,0.12), var(--surface))'
                   : 'var(--surface)',
-                border: `1px solid ${service.highlight ? 'rgba(200,151,58,0.3)' : 'rgba(255,255,255,0.05)'}`,
+                border: `1px solid ${service.highlight ? 'rgba(200,151,58,0.3)' : 'rgba(200, 151, 58, 0.1)'}`,
+                animationDelay: `${0.1 + (index * 0.1)}s`,
               }}
             >
               {/* Tag */}
               <div className="absolute top-6 right-6">
                 <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
                   style={{
-                    background: service.highlight ? 'rgba(200,151,58,0.2)' : 'rgba(255,255,255,0.05)',
-                    color: service.highlight ? '#C8973A' : '#8A9BB5',
+                    background: service.highlight ? 'rgba(200,151,58,0.2)' : 'rgba(200, 151, 58, 0.08)',
+                    color: service.highlight ? '#C8973A' : 'var(--text-muted)',
                   }}>
                   {service.tag}
                 </span>
@@ -99,13 +100,13 @@ export const Services = () => {
                   transition: 'background 0.3s ease',
                 }}>
                 <service.icon className="w-6 h-6"
-                  style={{ color: service.highlight ? '#C8973A' : '#8A9BB5', transition: 'color 0.3s' }} />
+                  style={{ color: service.highlight ? '#C8973A' : 'var(--text-muted)', transition: 'color 0.3s' }} />
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#C8973A] transition-colors">
+              <h3 className="text-lg font-bold mb-3 group-hover:text-[#C8973A] transition-colors" style={{ color: 'var(--foreground)' }}>
                 {service.title}
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#8A9BB5' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 {service.description}
               </p>
 
@@ -124,8 +125,8 @@ export const Services = () => {
             border: '1px solid rgba(200,151,58,0.2)',
           }}>
           <div>
-            <h3 className="text-xl font-bold text-white mb-1">Não encontrou o que procura?</h3>
-            <p style={{ color: '#8A9BB5' }}>Fale conosco e montamos uma proposta personalizada para o seu negócio.</p>
+            <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>Não encontrou o que procura?</h3>
+            <p style={{ color: 'var(--text-muted)' }}>Fale conosco e montamos uma proposta personalizada para o seu negócio.</p>
           </div>
           <a href="#contato"
             className="btn-primary px-8 py-4 whitespace-nowrap flex items-center gap-2 text-sm">

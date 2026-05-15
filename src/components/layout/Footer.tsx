@@ -21,12 +21,12 @@ export const Footer = () => {
                 VMA
               </div>
               <div>
-                <div className="text-white font-bold" style={{ fontFamily: 'var(--font-display)' }}>VMA Contabilidade</div>
-                <div className="text-[10px] uppercase tracking-widest" style={{ color: '#8A9BB5' }}>Desde 2009</div>
+                <div style={{ color: 'var(--foreground)', fontWeight: 'bold', fontFamily: 'var(--font-display)' }}>VMA Contabilidade</div>
+                <div className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Desde 2009</div>
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed" style={{ color: '#8A9BB5', fontWeight: 300, maxWidth: '280px' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)', fontWeight: 400, maxWidth: '280px' }}>
               Transformamos números em resultados concretos para empresas que querem crescer com segurança e inteligência fiscal.
             </p>
 
@@ -36,7 +36,7 @@ export const Footer = () => {
                 { icon: Mail, text: 'contato@vma.com.br' },
                 { icon: MapPin, text: 'Av. Paulista, 1000 — SP' },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 text-sm" style={{ color: '#8A9BB5' }}>
+                <div key={i} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
                   <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: '#C8973A' }} />
                   {item.text}
                 </div>
@@ -56,11 +56,11 @@ export const Footer = () => {
           {/* Link cols */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-white font-bold text-sm mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h4>
+              <h4 className="font-bold text-sm mb-5" style={{ color: 'var(--foreground)', fontFamily: 'var(--font-display)' }}>{title}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-sm transition-colors hover:text-[#C8973A]" style={{ color: '#8A9BB5' }}>
+                    <a href="#" className="text-sm transition-colors hover:text-[#C8973A]" style={{ color: 'var(--text-muted)' }}>
                       {link}
                     </a>
                   </li>
@@ -72,11 +72,11 @@ export const Footer = () => {
 
         {/* Bottom bar */}
         <div className="mt-14 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <p className="text-xs" style={{ color: '#8A9BB5' }}>
+          style={{ borderTop: '1px solid rgba(200,151,58,0.12)' }}>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             © {new Date().getFullYear()} VMA Contabilidade. Todos os direitos reservados.
           </p>
-          <p className="text-xs" style={{ color: '#8A9BB5' }}>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             CRC/SP — Registro Ativo
           </p>
         </div>

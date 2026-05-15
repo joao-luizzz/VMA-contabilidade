@@ -41,10 +41,10 @@ export const Navbar = () => {
                 VMA
               </div>
               <div>
-                <div className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                <div style={{ color: 'var(--foreground)', fontWeight: 'bold', fontSize: '14px', fontFamily: 'var(--font-display)' }}>
                   VMA
                 </div>
-                <div className="text-[10px] uppercase tracking-widest leading-tight" style={{ color: '#8A9BB5' }}>
+                <div className="text-[10px] uppercase tracking-widest leading-tight" style={{ color: 'var(--text-muted)' }}>
                   Contabilidade
                 </div>
               </div>
@@ -80,7 +80,7 @@ export const Navbar = () => {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden p-2 rounded-lg transition-colors"
-              style={{ color: '#8A9BB5' }}
+              style={{ color: 'var(--text-muted)' }}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -100,7 +100,7 @@ export const Navbar = () => {
         <div
           className="absolute top-0 right-0 bottom-0 w-72 p-8 flex flex-col gap-8"
           style={{
-            background: '#0D1E38',
+            background: 'var(--background)',
             borderLeft: '1px solid rgba(200,151,58,0.15)',
             transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
             transition: 'transform 0.3s ease',
@@ -112,7 +112,8 @@ export const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-lg font-semibold text-white hover:text-[#C8973A] transition-colors"
+                className="text-lg font-semibold hover:text-[var(--primary)] transition-colors"
+                style={{ color: 'var(--foreground)' }}
               >
                 {link.label}
               </a>
