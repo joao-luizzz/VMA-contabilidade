@@ -17,11 +17,11 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0A1628;
+  --foreground: #020617; /* Quase preto para melhor contraste */
   --primary: #0A1628;
   --accent: #C8973A;
-  --surface: #F5F7FA;
-  --text-muted: #64748B;
+  --surface: #F8FAFC;
+  --text-muted: #475569; /* Azul acinzentado escuro para legibilidade */
 }
 
 .dark {

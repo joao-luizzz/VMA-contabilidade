@@ -6,6 +6,7 @@ import { Hero } from '@/components/sections/Hero';
 import { Services } from '@/components/sections/Services';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/layout/Footer';
+import { CltPjCalculator } from '@/components/sections/CltPjCalculator';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <Services />
+        <CltPjCalculator />
         <Contact />
       </main>
       <Footer />
