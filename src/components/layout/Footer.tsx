@@ -32,9 +32,9 @@ export const Footer = () => {
 
             <div className="space-y-3">
               {[
-                { icon: Phone, text: '+55 (11) 9999-9999' },
-                { icon: Mail, text: 'contato@vma.com.br' },
-                { icon: MapPin, text: 'Av. Paulista, 1000 — SP' },
+                { icon: Phone, text: '(11) 94747-0884' },
+                { icon: Mail, text: 'vma.contabil@gmail.com' },
+                { icon: MapPin, text: 'R. Harold Loyd, 198, Sl 7 - Vargem Gde. Paulista, SP' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
                   <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: '#C8973A' }} />
@@ -77,7 +77,7 @@ export const Footer = () => {
             © {new Date().getFullYear()} VMA Contabilidade. Todos os direitos reservados.
           </p>
           <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-            CRC/SP — Registro Ativo
+            CRC/SP — Registro Ativo | CEP 06731-244
           </p>
         </div>
       </div>

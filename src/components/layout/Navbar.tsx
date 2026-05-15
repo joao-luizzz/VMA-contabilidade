@@ -67,9 +67,9 @@ export const Navbar = () => {
             {/* CTA & Theme Toggle */}
             <div className="hidden md:flex items-center gap-4">
               <ThemeToggle />
-              <a href="tel:+5511999999999" className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
+              <a href="tel:+5511947470884" className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
                 <Phone className="w-4 h-4" style={{ color: '#C8973A' }} />
-                (11) 9999-9999
+                (11) 94747-0884
               </a>
               <a href="#contato" className="btn-primary px-5 py-2.5 text-sm">
                 Falar Conosco
