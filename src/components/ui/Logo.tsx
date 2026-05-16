@@ -25,7 +25,7 @@ export const Logo = ({ className = "relative w-32 h-12", width, height, priority
   }
 
   const isDark = resolvedTheme === 'dark';
-  const logoSrc = isDark ? '/images/logo-vma-dark.jpg' : '/images/logo-vma.jpg';
+  const logoSrc = isDark ? '/images/logo-dark.png' : '/images/logo-vma.jpg';
 
   return (
     <div className={className}>
@@ -39,3 +39,5 @@ export const Logo = ({ className = "relative w-32 h-12", width, height, priority
     </div>
   );
 };
+
+
