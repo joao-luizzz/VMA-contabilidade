@@ -182,7 +182,6 @@ export const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className={inputClass}
                     style={{ appearance: 'auto', colorScheme: 'dark' }}
-                    style={{ appearance: 'auto' }}
                   >
                     {subjects.map((s) => <option key={s}>{s}</option>)}
                   </select>

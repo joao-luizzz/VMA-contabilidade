@@ -25,6 +25,8 @@ O **VMA Contabilidade** é uma plataforma web premium desenvolvida para elevar o
 
 A plataforma utiliza as tecnologias mais recentes do ecossistema JavaScript para garantir uma interface fluida, segura e altamente responsiva.
 
+
+
 ---
 
 ## 🚀 Estado Atual e Progresso
@@ -138,3 +140,4 @@ src/
 <p align="center">
   <sub>VMA Contabilidade - Excelência em Gestão Empresarial.</sub>
 </p>
+# VMA
