@@ -1,5 +1,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin, Instagram, Linkedin, Facebook } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
+import Image from 'next/image';
 
 const footerLinks = {
   Serviços: ['Assessoria Contábil', 'Planejamento Tributário', 'Gestão de Folha', 'Consultoria', 'Abertura de Empresa'],
@@ -15,15 +17,8 @@ export const Footer = () => {
 
           {/* Brand col */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm"
-                style={{ background: 'linear-gradient(135deg, #C8973A, #E8B45A)', color: '#0A1628' }}>
-                VMA
-              </div>
-              <div>
-                <div style={{ color: 'var(--foreground)', fontWeight: 'bold', fontFamily: 'var(--font-display)' }}>VMA Contabilidade</div>
-                <div className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Desde 2009</div>
-              </div>
+            <div className="flex items-center gap-3 group">
+              <Logo className="relative w-44 h-14 transition-transform duration-300 group-hover:scale-105" />
             </div>
 
             <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)', fontWeight: 400, maxWidth: '280px' }}>
@@ -32,14 +27,14 @@ export const Footer = () => {
 
             <div className="space-y-3">
               {[
-                { icon: Phone, text: '(11) 94747-0884' },
-                { icon: Mail, text: 'vma.contabil@gmail.com' },
-                { icon: MapPin, text: 'R. Harold Loyd, 198, Sl 7 - Vargem Gde. Paulista, SP' },
+                { icon: Phone, text: '(11) 94747-0884', href: 'https://wa.me/5511947470884' },
+                { icon: Mail, text: 'vma.contabil@gmail.com', href: 'mailto:vma.contabil@gmail.com' },
+                { icon: MapPin, text: 'R. Harold Loyd, 198, Sl 7 - Vargem Gde. Paulista, SP', href: '#' },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
+                <a key={i} href={item.href} className="flex items-center gap-3 text-sm hover:text-[#C8973A] transition-colors" style={{ color: 'var(--text-muted)' }}>
                   <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: '#C8973A' }} />
                   {item.text}
-                </div>
+                </a>
               ))}
             </div>
 

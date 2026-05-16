@@ -109,9 +109,9 @@ export function TrustedBy() {
         >
             {/* Background Decorations */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
-                <div className="absolute -bottom-40 left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+                <div className="absolute -top-40 -left-40 w-80 h-80 bg-[#C8973A]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-slate-400/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+                <div className="absolute -bottom-40 left-20 w-80 h-80 bg-[#C8973A]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,14 +126,14 @@ export function TrustedBy() {
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.5 }}
-                        className="inline-block px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full text-sm font-semibold mb-4 shadow-lg"
+                        className="inline-block px-4 py-2 bg-gradient-to-r from-[#C8973A] to-[#8A6A2A] text-[#0A1628] rounded-full text-sm font-bold mb-4 shadow-lg"
                     >
                         QUEM CONFIA NA GENTE
                     </motion.span>
 
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
                         Clientes que{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">
+                        <span className="text-gradient">
                             confiam
                         </span>{' '}
                         na VMA
@@ -195,7 +195,7 @@ export function TrustedBy() {
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
                             <div className="relative backdrop-blur-sm rounded-2xl p-6 text-center border border-blue-100/50 shadow-lg hover:shadow-xl transition-shadow duration-300"
                                 style={{ background: 'var(--surface)', opacity: 0.9 }}>
-                                <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800 mb-2">
+                                <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-2">
                                     {stat.number}
                                 </div>
                                 <div className="text-sm md:text-base font-medium" style={{ color: 'var(--text-muted)' }}>
@@ -214,8 +214,10 @@ export function TrustedBy() {
                     className="text-center mt-16"
                 >
                     <a
-                        href="#contato"
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                        href="https://wa.me/5511947470884"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
                     >
                         Quero ser mais um cliente satisfeito
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

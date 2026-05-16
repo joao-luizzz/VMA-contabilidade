@@ -7,6 +7,8 @@
   --color-accent: #C8973A;
   --color-accent-light: #E8B45A;
   --color-accent-muted: rgba(200, 151, 58, 0.15);
+  --color-silver: #A8A9AD;
+  --color-silver-light: #D1D5DB;
   --color-surface: #F5F7FA;
   --color-text-muted: #8A9BB5;
 
@@ -64,6 +66,13 @@ h5 {
 
   .text-gradient {
     background: linear-gradient(135deg, #C8973A 0%, #E8B45A 50%, #C8973A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .silver-gradient {
+    background: linear-gradient(135deg, #A8A9AD 0%, #D1D5DB 50%, #A8A9AD 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

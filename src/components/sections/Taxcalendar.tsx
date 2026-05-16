@@ -189,123 +189,69 @@ export const TaxCalendar = () => {
         return e.day >= today.getDate() && e.day <= today.getDate() + 7 && activeCategories.has(e.category);
     }).sort((a, b) => a.day - b.day);
 
-    // ─── Styles ─────────────────────────────────────────────────────────────────
-    const cellBase: React.CSSProperties = {
-        position: "relative",
-        aspectRatio: "1",
-        borderRadius: "10px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        paddingTop: "6px",
-        cursor: "pointer",
-        transition: "background 0.15s, border-color 0.15s",
-        border: "1px solid transparent",
-        minHeight: "52px",
-    };
-
     return (
-        <section
-            id="calendario"
-            style={{
-                background: "var(--background)",
-                padding: "80px 0",
-                position: "relative",
-                overflow: "hidden",
-            }}
-        >
+        <section id="calendario" className="bg-[var(--background)] py-20 relative overflow-hidden">
             {/* Glow */}
-            <div style={{
-                position: "absolute", bottom: "0", right: "10%",
-                width: "500px", height: "400px", pointerEvents: "none",
-                background: "radial-gradient(ellipse, rgba(200,151,58,0.05) 0%, transparent 70%)",
-            }} />
+            <div className="absolute bottom-0 right-[10%] w-[500px] h-[400px] bg-radial-gradient(ellipse, rgba(200,151,58,0.05) 0%, transparent 70%) pointer-events-none" />
 
-            <div style={{ maxWidth: "1120px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "48px" }}>
-                    <div style={{
-                        display: "inline-flex", alignItems: "center", gap: "8px",
-                        fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em",
-                        textTransform: "uppercase", color: "#C8973A", marginBottom: "16px",
-                    }}>
-                        <span style={{ width: "32px", height: "1px", background: "#C8973A" }} />
-                        <Calendar style={{ width: "14px", height: "14px" }} />
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[#C8973A] mb-4">
+                        <span className="w-8 h-px bg-[#C8973A]" />
+                        <Calendar className="w-3.5 h-3.5" />
                         Calendário Fiscal
-                        <span style={{ width: "32px", height: "1px", background: "#C8973A" }} />
+                        <span className="w-8 h-px bg-[#C8973A]" />
                     </div>
-                    <h2 style={{
-                        fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "var(--foreground)",
-                        margin: "0 0 12px", lineHeight: 1.1, fontFamily: "var(--font-display)",
-                    }}>
+                    <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-3 leading-[1.1] font-display">
                         Nunca perca um prazo fiscal.
                     </h2>
-                    <p style={{ color: "var(--text-muted)", fontSize: "16px", maxWidth: "480px", margin: "0 auto" }}>
+                    <p className="text-[var(--text-muted)] text-base md:text-lg max-w-xl mx-auto">
                         Acompanhe todas as obrigações tributárias e contábeis do mês em um só lugar.
                     </p>
                 </div>
 
-                <div className="flex flex-col lg:grid lg:grid-cols-[1fr_320px] gap-6 items-start">
-
+                <div className="flex flex-col lg:grid lg:grid-cols-[1fr_320px] gap-8 items-start">
                     {/* ── CALENDAR ── */}
-                    <div style={{
-                        background: "var(--surface)",
-                        border: "1px solid rgba(200, 151, 58, 0.1)",
-                        borderRadius: "20px",
-                        padding: "24px",
-                    }}>
+                    <div className="w-full bg-[var(--surface)] border border-[#C8973A]/10 rounded-3xl p-6 md:p-8">
                         {/* Month nav */}
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
+                        <div className="flex items-center justify-between mb-8">
                             <button
                                 onClick={prevMonth}
-                                style={{
-                                    width: "36px", height: "36px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.08)",
-                                    background: "rgba(255,255,255,0.04)", color: "#8A9BB5", cursor: "pointer",
-                                    display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s",
-                                }}
+                                className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center"
                             >
-                                <ChevronLeft size={16} />
+                                <ChevronLeft size={20} />
                             </button>
 
-                            <div style={{ textAlign: "center" }}>
-                                <div style={{ fontSize: "18px", fontWeight: 700, color: "var(--foreground)", fontFamily: "var(--font-display)" }}>
+                            <div className="text-center">
+                                <div className="text-xl font-bold text-[var(--foreground)] font-display">
                                     {MONTHS[currentMonth]}
                                 </div>
-                                <div style={{ fontSize: "12px", color: "var(--text-muted)" }}>{currentYear}</div>
+                                <div className="text-xs text-[var(--text-muted)] font-medium">{currentYear}</div>
                             </div>
 
                             <button
                                 onClick={nextMonth}
-                                style={{
-                                    width: "36px", height: "36px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.08)",
-                                    background: "rgba(255,255,255,0.04)", color: "#8A9BB5", cursor: "pointer",
-                                    display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s",
-                                }}
+                                className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center"
                             >
-                                <ChevronRight size={16} />
+                                <ChevronRight size={20} />
                             </button>
                         </div>
 
                         {/* Weekday labels */}
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px", marginBottom: "8px" }}>
+                        <div className="grid grid-cols-7 gap-1 mb-4">
                             {WEEKDAYS.map(d => (
-                                <div key={d} style={{
-                                    textAlign: "center", fontSize: "11px", fontWeight: 700,
-                                    letterSpacing: "0.06em", color: "var(--text-muted)", padding: "4px 0",
-                                    textTransform: "uppercase",
-                                }}>
+                                <div key={d} className="text-center text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] py-2">
                                     {d}
                                 </div>
                             ))}
                         </div>
 
                         {/* Day grid */}
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }} className="animate-in fade-in duration-700">
+                        <div className="grid grid-cols-7 gap-2 animate-in fade-in duration-700">
                             {/* Empty cells */}
                             {Array.from({ length: firstDay }).map((_, i) => (
-                                <div key={`empty-${i}`} />
+                                <div key={`empty-${i}`} className="aspect-square" />
                             ))}
 
                             {/* Days */}
@@ -320,56 +266,30 @@ export const TaxCalendar = () => {
                                     <div
                                         key={day}
                                         onClick={() => setSelectedDay(isSelected ? null : day)}
-                                        style={{
-                                            ...cellBase,
-                                            background: isSelected
-                                                ? "rgba(200,151,58,0.15)"
-                                                : todayDay
-                                                    ? "rgba(56,130,246,0.12)"
-                                                    : dayEvents.length > 0
-                                                        ? "rgba(255,255,255,0.03)"
-                                                        : "transparent",
-                                            border: isSelected
-                                                ? "1px solid rgba(200,151,58,0.5)"
-                                                : todayDay
-                                                    ? "1px solid rgba(56,130,246,0.4)"
-                                                    : "1px solid transparent",
-                                        }}
+                                        className={`relative aspect-square rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all border ${
+                                            isSelected ? 'bg-[#C8973A]/20 border-[#C8973A]/40' :
+                                            todayDay ? 'bg-blue-500/10 border-blue-500/30' :
+                                            dayEvents.length > 0 ? 'bg-white/5 border-transparent' : 'bg-transparent border-transparent'
+                                        } hover:bg-white/10`}
                                     >
-                                        <span style={{
-                                            fontSize: "13px",
-                                            fontWeight: todayDay ? 700 : 400,
-                                            color: isSelected
-                                                ? "#C8973A"
-                                                : todayDay
-                                                    ? "#60A5FA"
-                                                    : weekend
-                                                        ? "rgba(0, 0, 0, 0.2)"
-                                                        : "var(--foreground)",
-                                            lineHeight: 1,
-                                        }}>
+                                        <span className={`text-sm ${
+                                            isSelected ? 'text-[#C8973A] font-bold' :
+                                            todayDay ? 'text-blue-400 font-bold' :
+                                            weekend ? 'text-slate-600' : 'text-[var(--foreground)]'
+                                        }`}>
                                             {day}
                                         </span>
 
                                         {/* Event dots */}
                                         {dayEvents.length > 0 && (
-                                            <div style={{
-                                                display: "flex", gap: "2px", marginTop: "4px",
-                                                flexWrap: "wrap", justifyContent: "center", padding: "0 2px",
-                                            }}>
+                                            <div className="absolute bottom-2 flex gap-0.5 justify-center">
                                                 {dayEvents.slice(0, 3).map((ev, idx) => (
                                                     <div
                                                         key={idx}
-                                                        style={{
-                                                            width: "5px", height: "5px", borderRadius: "50%",
-                                                            background: CATEGORY_CONFIG[ev.category].dot,
-                                                            flexShrink: 0,
-                                                        }}
+                                                        className="w-1 h-1 rounded-full"
+                                                        style={{ background: CATEGORY_CONFIG[ev.category].dot }}
                                                     />
                                                 ))}
-                                                {dayEvents.length > 3 && (
-                                                    <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#4A5568" }} />
-                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -378,11 +298,7 @@ export const TaxCalendar = () => {
                         </div>
 
                         {/* Legend */}
-                        <div style={{
-                            marginTop: "20px", paddingTop: "16px",
-                            borderTop: "1px solid rgba(255,255,255,0.06)",
-                            display: "flex", flexWrap: "wrap", gap: "8px",
-                        }}>
+                        <div className="mt-10 pt-6 border-t border-white/5 flex flex-wrap gap-2">
                             {(Object.keys(CATEGORY_CONFIG) as EventCategory[]).map(cat => {
                                 const cfg = CATEGORY_CONFIG[cat];
                                 const active = activeCategories.has(cat);
@@ -390,25 +306,15 @@ export const TaxCalendar = () => {
                                     <button
                                         key={cat}
                                         onClick={() => toggleCategory(cat)}
+                                        className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all border`}
                                         style={{
-                                            display: "flex", alignItems: "center", gap: "6px",
-                                            padding: "4px 10px", borderRadius: "999px", cursor: "pointer",
-                                            border: `1px solid ${active ? cfg.border : "rgba(255,255,255,0.06)"}`,
-                                            background: active ? cfg.bg : "transparent",
-                                            transition: "all 0.2s",
+                                            backgroundColor: active ? cfg.bg : 'transparent',
+                                            borderColor: active ? cfg.border : 'rgba(255,255,255,0.05)',
+                                            color: active ? cfg.color : '#64748b'
                                         }}
                                     >
-                                        <div style={{
-                                            width: "6px", height: "6px", borderRadius: "50%",
-                                            background: active ? cfg.dot : "#4A5568",
-                                        }} />
-                                        <span style={{
-                                            fontSize: "11px", fontWeight: 600,
-                                            color: active ? cfg.color : "#4A5568",
-                                            letterSpacing: "0.04em",
-                                        }}>
-                                            {cfg.label}
-                                        </span>
+                                        <div className="w-1.5 h-1.5 rounded-full" style={{ background: active ? cfg.dot : '#475569' }} />
+                                        {cfg.label}
                                     </button>
                                 );
                             })}
@@ -416,166 +322,85 @@ export const TaxCalendar = () => {
                     </div>
 
                     {/* ── SIDEBAR ── */}
-                    <div className="flex flex-col gap-4 w-full">
-
+                    <div className="flex flex-col gap-6 w-full">
                         {/* Selected day events */}
-                        <div style={{
-                            background: "var(--surface)",
-                            border: "1px solid rgba(200, 151, 58, 0.15)",
-                            borderRadius: "20px",
-                            padding: "20px",
-                        }}>
-                            <div style={{
-                                fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em",
-                                textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "14px",
-                            }}>
-                                {selectedDay
-                                    ? `Dia ${selectedDay} — ${MONTHS[currentMonth]}`
-                                    : "Selecione um dia"}
+                        <div className="bg-[var(--surface)] border border-[#C8973A]/10 rounded-3xl p-6">
+                            <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--text-muted)] mb-6 flex items-center gap-2">
+                                <div className="w-1 h-1 rounded-full bg-[#C8973A]" />
+                                {selectedDay ? `Dia ${selectedDay} de ${MONTHS[currentMonth]}` : "Selecione um dia"}
                             </div>
 
-                            {selectedDay && selectedEvents.length === 0 && (
-                                <div style={{
-                                    textAlign: "center", padding: "24px 0",
-                                    color: "#4A5568", fontSize: "13px",
-                                }}>
-                                    <Calendar size={28} style={{ margin: "0 auto 8px", opacity: 0.4 }} />
-                                    Sem obrigações neste dia.
-                                </div>
-                            )}
-
-                            {selectedEvents.map((ev, i) => {
-                                const cfg = CATEGORY_CONFIG[ev.category];
-                                return (
-                                    <div
-                                        key={i}
-                                        style={{
-                                            padding: "12px 14px",
-                                            borderRadius: "12px",
-                                            background: cfg.bg,
-                                            border: `1px solid ${cfg.border}`,
-                                            marginBottom: "8px",
-                                        }}
-                                    >
-                                        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                                            <div style={{
-                                                width: "7px", height: "7px", borderRadius: "50%",
-                                                background: cfg.dot, flexShrink: 0,
-                                            }} />
-                                            <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)" }}>
-                                                {ev.title}
-                                            </span>
-                                            <span style={{
-                                                marginLeft: "auto",
-                                                fontSize: "10px", fontWeight: 700,
-                                                letterSpacing: "0.06em", color: cfg.color,
-                                                background: "rgba(0,0,0,0.2)",
-                                                padding: "2px 7px", borderRadius: "999px",
-                                            }}>
-                                                {cfg.label}
-                                            </span>
-                                        </div>
-                                        <p style={{ fontSize: "12px", color: "#8A9BB5", margin: 0, lineHeight: 1.5 }}>
-                                            {ev.description}
-                                        </p>
+                            <div className="space-y-4">
+                                {selectedDay && selectedEvents.length === 0 && (
+                                    <div className="text-center py-10">
+                                        <Calendar className="w-10 h-10 mx-auto mb-3 opacity-10" />
+                                        <p className="text-sm text-slate-500 italic">Sem obrigações para este dia.</p>
                                     </div>
-                                );
-                            })}
+                                )}
 
-                            {!selectedDay && (
-                                <div style={{ textAlign: "center", padding: "24px 0", color: "#4A5568", fontSize: "13px" }}>
-                                    <Calendar size={28} style={{ margin: "0 auto 8px", opacity: 0.3 }} />
-                                    Clique em um dia para ver os vencimentos.
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Upcoming (only current month) */}
-                        {upcoming.length > 0 && (
-                            <div style={{
-                                background: "var(--surface)",
-                                border: "1px solid rgba(200,151,58,0.2)",
-                                borderRadius: "20px",
-                                padding: "20px",
-                            }}>
-                                <div style={{
-                                    display: "flex", alignItems: "center", gap: "6px",
-                                    fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em",
-                                    textTransform: "uppercase", color: "#C8973A", marginBottom: "14px",
-                                }}>
-                                    <AlertCircle size={13} />
-                                    Próximos 7 dias
-                                </div>
-                                {upcoming.map((ev, i) => {
+                                {selectedEvents.map((ev, i) => {
                                     const cfg = CATEGORY_CONFIG[ev.category];
-                                    const daysLeft = ev.day - today.getDate();
                                     return (
-                                        <div
-                                            key={i}
-                                            onClick={() => setSelectedDay(ev.day)}
-                                            style={{
-                                                display: "flex", alignItems: "center", gap: "12px",
-                                                padding: "10px 0",
-                                                borderBottom: i < upcoming.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <div style={{
-                                                width: "36px", height: "36px", borderRadius: "10px",
-                                                background: cfg.bg, border: `1px solid ${cfg.border}`,
-                                                display: "flex", alignItems: "center", justifyContent: "center",
-                                                flexShrink: 0,
-                                            }}>
-                                                <span style={{ fontSize: "14px", fontWeight: 700, color: cfg.color, fontFamily: "var(--font-display)" }}>
-                                                    {ev.day}
+                                        <div key={i} className="p-4 rounded-2xl border transition-all" style={{ background: cfg.bg, borderColor: cfg.border }}>
+                                            <div className="flex items-center justify-between mb-2">
+                                                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-black/20" style={{ color: cfg.color }}>
+                                                    {cfg.label}
                                                 </span>
                                             </div>
-                                            <div style={{ flex: 1, minWidth: 0 }}>
-                                                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)", marginBottom: "2px" }}>
-                                                    {ev.title}
-                                                </div>
-                                                <div style={{ fontSize: "11px", color: "#8A9BB5" }}>
-                                                    {daysLeft === 0 ? "Hoje!" : daysLeft === 1 ? "Amanhã" : `Em ${daysLeft} dias`}
-                                                </div>
-                                            </div>
-                                            <div style={{
-                                                width: "6px", height: "6px", borderRadius: "50%",
-                                                background: daysLeft <= 2 ? "#F87171" : daysLeft <= 5 ? "#FBBF24" : "#34D399",
-                                                flexShrink: 0,
-                                            }} />
+                                            <h4 className="font-bold text-[var(--foreground)] text-sm mb-1">{ev.title}</h4>
+                                            <p className="text-xs text-[var(--text-muted)] leading-relaxed">{ev.description}</p>
                                         </div>
                                     );
                                 })}
+
+                                {!selectedDay && (
+                                    <div className="text-center py-10">
+                                        <Calendar className="w-10 h-10 mx-auto mb-3 opacity-10" />
+                                        <p className="text-sm text-slate-500">Clique em um dia no calendário para ver os detalhes.</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Upcoming Events */}
+                        {upcoming.length > 0 && (
+                            <div className="bg-gradient-to-br from-[#C8973A]/10 to-transparent border border-[#C8973A]/20 rounded-3xl p-6">
+                                <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#C8973A] mb-6 flex items-center gap-2">
+                                    <AlertCircle className="w-3.5 h-3.5" />
+                                    Próximos 7 dias
+                                </div>
+                                <div className="space-y-4">
+                                    {upcoming.map((ev, i) => {
+                                        const cfg = CATEGORY_CONFIG[ev.category];
+                                        const daysLeft = ev.day - today.getDate();
+                                        return (
+                                            <div
+                                                key={i}
+                                                onClick={() => setSelectedDay(ev.day)}
+                                                className="flex items-center gap-4 cursor-pointer group"
+                                            >
+                                                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-bold text-sm transition-transform group-hover:scale-110" style={{ background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.border}` }}>
+                                                    {ev.day}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="text-sm font-bold text-[var(--foreground)] truncate">{ev.title}</div>
+                                                    <div className="text-[10px] text-slate-500 uppercase tracking-wider">
+                                                        {daysLeft === 0 ? "Hoje" : daysLeft === 1 ? "Amanhã" : `Em ${daysLeft} dias`}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         )}
 
                         {/* CTA */}
-                        <div style={{
-                            padding: "20px",
-                            borderRadius: "20px",
-                            background: "linear-gradient(135deg, rgba(200,151,58,0.12), rgba(200,151,58,0.04))",
-                            border: "1px solid rgba(200,151,58,0.25)",
-                            textAlign: "center",
-                        }}>
-                            <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--foreground)", marginBottom: "6px", fontFamily: "var(--font-display)" }}>
-                                Quer que a gente cuide disso?
-                            </div>
-                            <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: "0 0 14px" }}>
-                                Nossa equipe gerencia todos os seus prazos fiscais.
-                            </p>
-                            <a
-                                href="#contato"
-                                className="btn-primary"
-                                style={{
-                                    display: "inline-flex", alignItems: "center", gap: "6px",
-                                    padding: "10px 20px", fontSize: "13px", borderRadius: "8px",
-                                    fontWeight: 700, textDecoration: "none",
-                                    background: "linear-gradient(135deg, #C8973A, #E8B45A)",
-                                    color: "#0A1628",
-                                    boxShadow: "0 4px 16px rgba(200,151,58,0.3)",
-                                }}
-                            >
-                                Falar com especialista
+                        <div className="bg-[#C8973A] rounded-3xl p-6 text-[#0A1628]">
+                            <h4 className="font-bold mb-2 font-display">Sua empresa em boas mãos.</h4>
+                            <p className="text-xs opacity-80 mb-6">Nossa equipe cuida de todos os seus prazos fiscais para você focar no que importa.</p>
+                            <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" className="block w-full py-3 bg-[#0A1628] text-white text-center rounded-xl text-xs font-bold transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                                Falar com Especialista
                             </a>
                         </div>
                     </div>

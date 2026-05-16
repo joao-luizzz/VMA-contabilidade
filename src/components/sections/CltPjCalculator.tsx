@@ -55,37 +55,11 @@ interface ItemProps {
 }
 
 const LineItem = ({ label, value, positive = true, indent = false, highlight = false }: ItemProps) => (
-    <div
-        style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "6px 0",
-            borderBottom: "1px solid rgba(255,255,255,0.04)",
-            paddingLeft: indent ? "12px" : "0",
-        }}
-    >
-        <span
-            style={{
-                fontSize: "13px",
-                color: highlight ? "var(--foreground)" : "var(--text-muted)",
-                fontWeight: highlight ? 500 : 400,
-            }}
-        >
+    <div className={`flex justify-between items-center py-2 border-b border-white/5 ${indent ? 'pl-4' : ''}`}>
+        <span className={`text-[13px] ${highlight ? 'text-[var(--foreground)] font-medium' : 'text-[var(--text-muted)] font-normal'}`}>
             {label}
         </span>
-        <span
-            style={{
-                fontSize: "13px",
-                fontWeight: highlight ? 600 : 500,
-                color: highlight
-                    ? "#C8973A"
-                    : positive
-                        ? "#A3E4C8"
-                        : "#F9A8A8",
-                fontFamily: "var(--font-display)",
-            }}
-        >
+        <span className={`text-[13px] font-medium font-mono ${highlight ? 'text-[#C8973A] font-bold' : positive ? 'text-[#A3E4C8]' : 'text-[#F9A8A8]'}`}>
             {positive ? "+" : "-"} {fmt(Math.abs(value))}
         </span>
     </div>
@@ -162,10 +136,7 @@ export const CltPjCalculator = () => {
         return { bruto, imposto, inss, prolaboreBase, contador, total };
     }, [salarioBrutoPJ, aliquotaImposto, pctProlabore, custoContador]);
 
-    // ─── PJ mínimo para igualar CLT ───────────────────────────────────────────
     const pjMinimoEquivalente = useMemo(() => {
-        // solve: bruto*(1 - aliq) - bruto*pct*0.11 - contador = clt.total
-        // bruto * (1 - aliq - pct*0.11) = clt.total + contador
         const coef = 1 - aliquotaImposto - (pctProlabore / 100) * 0.11;
         if (coef <= 0) return null;
         return (clt.total + custoContador) / coef;
@@ -175,581 +146,272 @@ export const CltPjCalculator = () => {
     const pjWins = diff > 0;
     const tied = Math.abs(diff) < 50;
 
-    // ─── Input helpers ────────────────────────────────────────────────────────
-    const inputStyle: React.CSSProperties = {
-        width: "100%",
-        height: "42px",
-        padding: "0 12px",
-        background: "var(--surface)",
-        border: "1px solid rgba(200, 151, 58, 0.1)",
-        borderRadius: "10px",
-        color: "var(--foreground)",
-        fontSize: "14px",
-        outline: "none",
-        fontFamily: "var(--font-body)",
-        transition: "border-color 0.2s",
-    };
-
-    const labelStyle: React.CSSProperties = {
-        fontSize: "11px",
-        fontWeight: 600,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase" as const,
-        color: "var(--text-muted)",
-        marginBottom: "6px",
-        display: "block",
-    };
-
-    const sectionTitle = (text: string) => (
-        <div
-            style={{
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "#C8973A",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                marginBottom: "12px",
-                marginTop: "20px",
-            }}
-        >
-            <span style={{ flex: 1, height: "1px", background: "rgba(200,151,58,0.2)" }} />
-            {text}
-            <span style={{ flex: 1, height: "1px", background: "rgba(200,151,58,0.2)" }} />
-        </div>
-    );
-
-    const card = (content: React.ReactNode, style?: React.CSSProperties) => (
-        <div
-            style={{
-                background: "var(--surface)",
-                border: "1px solid rgba(200, 151, 58, 0.1)",
-                borderRadius: "16px",
-                padding: "20px 24px",
-                ...style,
-            }}
-        >
-            {content}
-        </div>
-    );
+    const cardClass = "bg-[var(--surface)] border border-[#C8973A]/10 rounded-2xl p-6 md:p-8";
 
     return (
-        <section
-            id="calculadora"
-            style={{
-                background: "var(--background)",
-                padding: "80px 0",
-                position: "relative",
-                overflow: "hidden",
-            }}
-        >
+        <section id="calculadora" className="bg-[var(--background)] py-20 relative overflow-hidden">
             {/* Glow */}
-            <div
-                style={{
-                    position: "absolute",
-                    top: "10%",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "700px",
-                    height: "300px",
-                    background:
-                        "radial-gradient(ellipse, rgba(200,151,58,0.06) 0%, transparent 70%)",
-                    pointerEvents: "none",
-                }}
-            />
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-radial-gradient(ellipse, rgba(200,151,58,0.06) 0%, transparent 70%) pointer-events-none" />
 
-            <div
-                style={{
-                    maxWidth: "1120px",
-                    margin: "0 auto",
-                    padding: "0 24px",
-                    position: "relative",
-                    zIndex: 1,
-                }}
-            >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "48px" }}>
-                    <div
-                        style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            fontSize: "11px",
-                            fontWeight: 700,
-                            letterSpacing: "0.12em",
-                            textTransform: "uppercase",
-                            color: "#C8973A",
-                            marginBottom: "16px",
-                        }}
-                    >
-                        <span style={{ width: "32px", height: "1px", background: "#C8973A" }} />
-                        <Calculator style={{ width: "14px", height: "14px" }} />
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[#C8973A] mb-4">
+                        <span className="w-8 h-px bg-[#C8973A]" />
+                        <Calculator className="w-3.5 h-3.5" />
                         Calculadora
-                        <span style={{ width: "32px", height: "1px", background: "#C8973A" }} />
+                        <span className="w-8 h-px bg-[#C8973A]" />
                     </div>
-                    <h2
-                        style={{
-                            fontSize: "clamp(28px, 4vw, 44px)",
-                            fontWeight: 700,
-                            color: "var(--foreground)",
-                            margin: "0 0 12px",
-                            lineHeight: 1.1,
-                            fontFamily: "var(--font-display)",
-                        }}
-                    >
+                    <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-3 leading-[1.1]">
                         CLT ou PJ? Descubra o que vale mais.
                     </h2>
-                    <p style={{ color: "var(--text-muted)", fontSize: "16px", maxWidth: "520px", margin: "0 auto" }}>
+                    <p className="text-[var(--text-muted)] text-base md:text-lg max-w-xl mx-auto">
                         Compare seu salário líquido real em ambas as modalidades com base nos seus dados.
                     </p>
                 </div>
 
-                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6">
+                <div className="grid lg:grid-cols-2 gap-8 items-start">
                     {/* ── CLT COLUMN ── */}
-                    <div>
-                        {card(
-                            <>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "10px",
-                                        marginBottom: "20px",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            width: "36px",
-                                            height: "36px",
-                                            borderRadius: "10px",
-                                            background: "rgba(56,130,246,0.12)",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            fontSize: "18px",
-                                            fontWeight: 700,
-                                            color: "#60A5FA",
-                                            fontFamily: "var(--font-display)",
-                                        }}
-                                    >
-                                        C
-                                    </div>
-                                    <div>
-                                        <div style={{ color: "var(--foreground)", fontWeight: 600, fontSize: "16px" }}>
-                                            Regime CLT
-                                        </div>
-                                        <div style={{ color: "var(--text-muted)", fontSize: "12px" }}>
-                                            Carteira assinada
-                                        </div>
+                    <div className="space-y-6">
+                        <div className={cardClass}>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-lg font-bold text-blue-400">
+                                    C
+                                </div>
+                                <div>
+                                    <div className="text-[var(--foreground)] font-semibold">Regime CLT</div>
+                                    <div className="text-[var(--text-muted)] text-xs">Carteira assinada</div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1.5 block">Salário bruto mensal</label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">R$</span>
+                                        <input
+                                            type="number"
+                                            value={salarioBruto}
+                                            onChange={(e) => setSalarioBruto(Number(e.target.value))}
+                                            className="w-full bg-[var(--background)] border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:border-[#C8973A] outline-none transition-colors"
+                                        />
                                     </div>
                                 </div>
 
-                                <label style={labelStyle}>Salário bruto mensal</label>
-                                <div style={{ position: "relative", marginBottom: "16px" }}>
-                                    <span
-                                        style={{
-                                            position: "absolute",
-                                            left: "12px",
-                                            top: "50%",
-                                            transform: "translateY(-50%)",
-                                            color: "#8A9BB5",
-                                            fontSize: "13px",
-                                        }}
-                                    >
-                                        R$
-                                    </span>
-                                    <input
-                                        type="number"
-                                        value={salarioBruto}
-                                        min={1320}
-                                        step={100}
-                                        onChange={(e) => setSalarioBruto(Number(e.target.value))}
-                                        style={{ ...inputStyle, paddingLeft: "32px" }}
-                                    />
-                                </div>
-
-                                {sectionTitle("Benefícios opcionais")}
-
-                                {[
-                                    { label: "Vale-refeição / alimentação", val: vr, set: setVr },
-                                    { label: "Vale-transporte", val: vt, set: setVt },
-                                    { label: "Plano de saúde", val: planoSaude, set: setPlanoSaude },
-                                    { label: "Outros benefícios", val: outrosBeneficios, set: setOutrosBeneficios },
-                                ].map(({ label, val, set }) => (
-                                    <div key={label} style={{ marginBottom: "12px" }}>
-                                        <label style={labelStyle}>{label}</label>
-                                        <div style={{ position: "relative" }}>
-                                            <span
-                                                style={{
-                                                    position: "absolute",
-                                                    left: "12px",
-                                                    top: "50%",
-                                                    transform: "translateY(-50%)",
-                                                    color: "#8A9BB5",
-                                                    fontSize: "13px",
-                                                }}
-                                            >
-                                                R$
-                                            </span>
-                                            <input
-                                                type="number"
-                                                value={val}
-                                                min={0}
-                                                step={50}
-                                                onChange={(e) => set(Number(e.target.value))}
-                                                style={{ ...inputStyle, paddingLeft: "32px" }}
-                                            />
-                                        </div>
+                                <div className="pt-2">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-[#C8973A] mb-4">
+                                        <span className="flex-1 h-px bg-[#C8973A]/20" />
+                                        Benefícios
+                                        <span className="flex-1 h-px bg-[#C8973A]/20" />
                                     </div>
-                                ))}
-                            </>
-                        )}
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {[
+                                            { label: "Vale-refeição", val: vr, set: setVr },
+                                            { label: "Vale-transporte", val: vt, set: setVt },
+                                            { label: "Plano de saúde", val: planoSaude, set: setPlanoSaude },
+                                            { label: "Outros", val: outrosBeneficios, set: setOutrosBeneficios },
+                                        ].map(({ label, val, set }) => (
+                                            <div key={label}>
+                                                <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1 block">{label}</label>
+                                                <div className="relative">
+                                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs">R$</span>
+                                                    <input
+                                                        type="number"
+                                                        value={val}
+                                                        onChange={(e) => set(Number(e.target.value))}
+                                                        className="w-full bg-[var(--background)] border border-white/5 rounded-lg py-2 pl-8 pr-3 text-xs focus:border-[#C8973A] outline-none transition-colors"
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* CLT Result */}
-                        {card(
-                            <>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                                    <div>
-                                        <div style={{ fontSize: "11px", color: "#8A9BB5", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
-                                            Equivalente líquido CLT/mês
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontSize: "30px",
-                                                fontWeight: 700,
-                                                color: "#60A5FA",
-                                                fontFamily: "var(--font-display)",
-                                                lineHeight: 1,
-                                            }}
-                                        >
-                                            {fmt(clt.total)}
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => setShowDetailCLT(!showDetailCLT)}
-                                        style={{
-                                            background: "rgba(255,255,255,0.05)",
-                                            border: "1px solid rgba(255,255,255,0.08)",
-                                            borderRadius: "8px",
-                                            color: "#8A9BB5",
-                                            padding: "6px 10px",
-                                            cursor: "pointer",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "4px",
-                                            fontSize: "12px",
-                                        }}
-                                    >
-                                        Detalhes
-                                        {showDetailCLT ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                                    </button>
+                        <div className={`${cardClass} !border-blue-500/20 shadow-lg shadow-blue-500/5`}>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Líquido Mensal CLT</div>
+                                    <div className="text-3xl font-bold text-blue-400 font-display">{fmt(clt.total)}</div>
                                 </div>
-
-                                {showDetailCLT && (
-                                    <div style={{ marginTop: "16px" }}>
-                                        <LineItem label="Salário bruto" value={clt.bruto} />
-                                        <LineItem label="(-) INSS" value={clt.inss} positive={false} indent />
-                                        <LineItem label="(-) IRRF" value={clt.irrf} positive={false} indent />
-                                        <LineItem label="= Salário líquido" value={clt.liquido} highlight />
-                                        <LineItem label="(+) Férias + 1/3 líq. (÷12)" value={clt.feriasLiq} />
-                                        <LineItem label="(+) 13º salário líq. (÷12)" value={clt.decimoTerceiro} />
-                                        <LineItem label="(+) FGTS (8%)" value={clt.fgts} />
-                                        {clt.vr > 0 && <LineItem label="(+) VR/VA" value={clt.vr} />}
-                                        {clt.vt > 0 && <LineItem label="(+) Vale-transporte" value={clt.vt} />}
-                                        {clt.planoSaude > 0 && <LineItem label="(+) Plano de saúde" value={clt.planoSaude} />}
-                                        {clt.outrosBeneficios > 0 && <LineItem label="(+) Outros" value={clt.outrosBeneficios} />}
-                                        <LineItem label="Total mensal equivalente" value={clt.total} highlight />
-                                    </div>
-                                )}
-                            </>,
-                            { borderColor: "rgba(56,130,246,0.25)", marginTop: "16px" }
-                        )}
-                    </div>
-
-                    {/* ── PJ COLUMN ── */}
-                    <div>
-                        {card(
-                            <>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "10px",
-                                        marginBottom: "20px",
-                                    }}
+                                <button
+                                    onClick={() => setShowDetailCLT(!showDetailCLT)}
+                                    className="p-2 bg-white/5 rounded-lg text-slate-400 hover:text-white transition-colors"
                                 >
-                                    <div
-                                        style={{
-                                            width: "36px",
-                                            height: "36px",
-                                            borderRadius: "10px",
-                                            background: "rgba(200,151,58,0.15)",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            fontSize: "18px",
-                                            fontWeight: 700,
-                                            color: "#C8973A",
-                                            fontFamily: "var(--font-display)",
-                                        }}
-                                    >
-                                        P
-                                    </div>
-                                    <div>
-                                        <div style={{ color: "var(--foreground)", fontWeight: 600, fontSize: "16px" }}>
-                                            Regime PJ
-                                        </div>
-                                        <div style={{ color: "var(--text-muted)", fontSize: "12px" }}>
-                                            Pessoa jurídica
-                                        </div>
-                                    </div>
+                                    {showDetailCLT ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                </button>
+                            </div>
+
+                            {showDetailCLT && (
+                                <div className="mt-6 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    <LineItem label="Salário bruto" value={clt.bruto} />
+                                    <LineItem label="(-) INSS" value={clt.inss} positive={false} indent />
+                                    <LineItem label="(-) IRRF" value={clt.irrf} positive={false} indent />
+                                    <LineItem label="= Salário líquido" value={clt.liquido} highlight />
+                                    <LineItem label="(+) Férias + 1/3 (proporcional)" value={clt.feriasLiq} />
+                                    <LineItem label="(+) 13º salário (proporcional)" value={clt.decimoTerceiro} />
+                                    <LineItem label="(+) FGTS (8%)" value={clt.fgts} />
+                                    {(clt.vr + clt.vt + clt.planoSaude + clt.outrosBeneficios) > 0 && (
+                                        <LineItem label="(+) Benefícios totais" value={clt.vr + clt.vt + clt.planoSaude + clt.outrosBeneficios} />
+                                    )}
+                                    <LineItem label="Total mensal equivalente" value={clt.total} highlight />
                                 </div>
-
-                                <label style={labelStyle}>Faturamento bruto mensal PJ</label>
-                                <div style={{ position: "relative", marginBottom: "16px" }}>
-                                    <span
-                                        style={{
-                                            position: "absolute",
-                                            left: "12px",
-                                            top: "50%",
-                                            transform: "translateY(-50%)",
-                                            color: "#8A9BB5",
-                                            fontSize: "13px",
-                                        }}
-                                    >
-                                        R$
-                                    </span>
-                                    <input
-                                        type="number"
-                                        value={salarioBrutoPJ}
-                                        min={1000}
-                                        step={500}
-                                        onChange={(e) => setSalarioBrutoPJ(Number(e.target.value))}
-                                        style={{ ...inputStyle, paddingLeft: "32px" }}
-                                    />
-                                </div>
-
-                                <label style={labelStyle}>Regime tributário (alíquota)</label>
-                                <select
-                                    value={aliquotaImposto}
-                                    onChange={(e) => setAliquotaImposto(Number(e.target.value))}
-                                    style={{ ...inputStyle, marginBottom: "16px", appearance: "auto", colorScheme: "dark" }}
-                                >
-                                    <option value={0.06}>Simples Nacional — 6%</option>
-                                    <option value={0.11}>Simples Nacional — 11%</option>
-                                    <option value={0.15}>Lucro Presumido — 15%</option>
-                                    <option value={0.27}>Lucro Presumido — 27%</option>
-                                    <option value={0.33}>Lucro Real — 33%</option>
-                                </select>
-
-                                {sectionTitle("Encargos opcionais")}
-
-                                <label style={labelStyle}>Pró-labore (% do faturamento)</label>
-                                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                                    <input
-                                        type="range"
-                                        min={10}
-                                        max={100}
-                                        step={5}
-                                        value={pctProlabore}
-                                        onChange={(e) => setPctProlabore(Number(e.target.value))}
-                                        style={{ flex: 1, accentColor: "#C8973A" }}
-                                    />
-                                    <span style={{ color: "#C8973A", fontWeight: 700, minWidth: "40px", textAlign: "right" }}>
-                                        {pctProlabore}%
-                                    </span>
-                                </div>
-                                <div style={{ fontSize: "11px", color: "#8A9BB5", marginBottom: "16px" }}>
-                                    INSS de 11% incide sobre {fmt(pj.prolaboreBase)} = {fmt(pj.inss)}
-                                </div>
-
-                                <label style={labelStyle}>Honorários contábeis / mês</label>
-                                <div style={{ position: "relative" }}>
-                                    <span
-                                        style={{
-                                            position: "absolute",
-                                            left: "12px",
-                                            top: "50%",
-                                            transform: "translateY(-50%)",
-                                            color: "#8A9BB5",
-                                            fontSize: "13px",
-                                        }}
-                                    >
-                                        R$
-                                    </span>
-                                    <input
-                                        type="number"
-                                        value={custoContador}
-                                        min={0}
-                                        step={50}
-                                        onChange={(e) => setCustoContador(Number(e.target.value))}
-                                        style={{ ...inputStyle, paddingLeft: "32px" }}
-                                    />
-                                </div>
-                            </>
-                        )}
-
-                        {/* PJ Result */}
-                        {card(
-                            <>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                                    <div>
-                                        <div style={{ fontSize: "11px", color: "#8A9BB5", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "4px" }}>
-                                            Líquido PJ/mês
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontSize: "30px",
-                                                fontWeight: 700,
-                                                color: "#C8973A",
-                                                fontFamily: "var(--font-display)",
-                                                lineHeight: 1,
-                                            }}
-                                        >
-                                            {fmt(pj.total)}
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => setShowDetailPJ(!showDetailPJ)}
-                                        style={{
-                                            background: "var(--surface)",
-                                            border: "1px solid rgba(200, 151, 58, 0.2)",
-                                            borderRadius: "8px",
-                                            color: "var(--text-muted)",
-                                            padding: "6px 10px",
-                                            cursor: "pointer",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "4px",
-                                            fontSize: "12px",
-                                        }}
-                                    >
-                                        Detalhes
-                                        {showDetailPJ ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                                    </button>
-                                </div>
-
-                                {showDetailPJ && (
-                                    <div style={{ marginTop: "16px" }}>
-                                        <LineItem label="Faturamento bruto PJ" value={pj.bruto} />
-                                        <LineItem label={`(-) Impostos (${Math.round(aliquotaImposto * 100)}%)`} value={pj.imposto} positive={false} indent />
-                                        <LineItem label="(-) INSS pró-labore (11%)" value={pj.inss} positive={false} indent />
-                                        <LineItem label="(-) Contador" value={pj.contador} positive={false} indent />
-                                        <LineItem label="= Líquido estimado" value={pj.total} highlight />
-                                    </div>
-                                )}
-                            </>,
-                            { borderColor: "rgba(200,151,58,0.3)", marginTop: "16px" }
-                        )}
-                    </div>
-                </div>
-
-                {/* ── VERDICT ── */}
-                <div
-                    className="flex flex-col md:grid md:grid-cols-[auto_1fr_auto] gap-6"
-                    style={{
-                        marginTop: "24px",
-                        borderRadius: "16px",
-                        padding: "24px 28px",
-                        background: tied
-                            ? "var(--surface)"
-                            : pjWins
-                                ? "rgba(200,151,58,0.12)"
-                                : "rgba(56,130,246,0.08)",
-                        border: `1px solid ${tied
-                                ? "rgba(200, 151, 58, 0.1)"
-                                : pjWins
-                                    ? "rgba(200,151,58,0.3)"
-                                    : "rgba(56,130,246,0.3)"
-                            }`,
-                        alignItems: "center",
-                    }}
-                >
-                    {/* Icon */}
-                    <div
-                        style={{
-                            width: "48px",
-                            height: "48px",
-                            borderRadius: "14px",
-                            background: tied
-                                ? "rgba(200, 151, 58, 0.05)"
-                                : pjWins
-                                    ? "rgba(200,151,58,0.15)"
-                                    : "rgba(56,130,246,0.15)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        {tied ? (
-                            <Minus size={22} color="var(--text-muted)" />
-                        ) : pjWins ? (
-                            <TrendingUp size={22} color="#C8973A" />
-                        ) : (
-                            <TrendingDown size={22} color="#60A5FA" />
-                        )}
-                    </div>
-
-                    {/* Text */}
-                    <div>
-                        <div style={{ fontSize: "16px", fontWeight: 700, color: "var(--foreground)", marginBottom: "4px", fontFamily: "var(--font-display)" }}>
-                            {tied
-                                ? "As duas opções são praticamente equivalentes"
-                                : pjWins
-                                    ? "PJ rende mais no seu cenário"
-                                    : "CLT rende mais no seu cenário"}
-                        </div>
-                        <div style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-                            {tied ? (
-                                "Diferença inferior a R$50/mês. Considere estabilidade, benefícios e perfil profissional."
-                            ) : pjWins ? (
-                                <>
-                                    O PJ gera{" "}
-                                    <strong style={{ color: "#C8973A" }}>{fmt(Math.abs(diff))}/mês</strong> a mais que o CLT equivalente.
-                                </>
-                            ) : (
-                                <>
-                                    O CLT gera{" "}
-                                    <strong style={{ color: "#60A5FA" }}>{fmt(Math.abs(diff))}/mês</strong> a mais que o PJ configurado.
-                                </>
                             )}
                         </div>
                     </div>
 
-                    {/* PJ mínimo */}
+                    {/* ── PJ COLUMN ── */}
+                    <div className="space-y-6">
+                        <div className={cardClass}>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-10 h-10 rounded-xl bg-[#C8973A]/10 flex items-center justify-center text-lg font-bold text-[#C8973A]">
+                                    P
+                                </div>
+                                <div>
+                                    <div className="text-[var(--foreground)] font-semibold">Regime PJ</div>
+                                    <div className="text-[var(--text-muted)] text-xs">Pessoa jurídica</div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1.5 block">Faturamento mensal PJ</label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">R$</span>
+                                        <input
+                                            type="number"
+                                            value={salarioBrutoPJ}
+                                            onChange={(e) => setSalarioBrutoPJ(Number(e.target.value))}
+                                            className="w-full bg-[var(--background)] border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:border-[#C8973A] outline-none transition-colors"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1.5 block">Alíquota de Imposto</label>
+                                    <select
+                                        value={aliquotaImposto}
+                                        onChange={(e) => setAliquotaImposto(Number(e.target.value))}
+                                        className="w-full bg-[var(--background)] border border-white/10 rounded-xl py-2.5 px-4 text-sm focus:border-[#C8973A] outline-none appearance-none"
+                                    >
+                                        <option value={0.06}>Simples Nacional (Anexo III) — 6%</option>
+                                        <option value={0.155}>Simples Nacional (Anexo V) — 15.5%</option>
+                                        <option value={0.1333}>Lucro Presumido — 13.33%</option>
+                                        <option value={0.1633}>Lucro Presumido — 16.33%</option>
+                                    </select>
+                                </div>
+
+                                <div className="pt-2">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-[#C8973A] mb-4">
+                                        <span className="flex-1 h-px bg-[#C8973A]/20" />
+                                        Custos Fixos
+                                        <span className="flex-1 h-px bg-[#C8973A]/20" />
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1">
+                                                <span>Pró-labore</span>
+                                                <span>{pctProlabore}%</span>
+                                            </div>
+                                            <input
+                                                type="range"
+                                                min={10}
+                                                max={100}
+                                                value={pctProlabore}
+                                                onChange={(e) => setPctProlabore(Number(e.target.value))}
+                                                className="w-full accent-[#C8973A] h-1.5 bg-white/5 rounded-full"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-1 block">Honorários Contábeis</label>
+                                            <div className="relative">
+                                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs">R$</span>
+                                                <input
+                                                    type="number"
+                                                    value={custoContador}
+                                                    onChange={(e) => setCustoContador(Number(e.target.value))}
+                                                    className="w-full bg-[var(--background)] border border-white/5 rounded-lg py-2 pl-8 pr-3 text-xs focus:border-[#C8973A] outline-none transition-colors"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* PJ Result */}
+                        <div className={`${cardClass} !border-[#C8973A]/30 shadow-lg shadow-[#C8973A]/5`}>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Líquido Mensal PJ</div>
+                                    <div className="text-3xl font-bold text-[#C8973A] font-display">{fmt(pj.total)}</div>
+                                </div>
+                                <button
+                                    onClick={() => setShowDetailPJ(!showDetailPJ)}
+                                    className="p-2 bg-white/5 rounded-lg text-slate-400 hover:text-white transition-colors"
+                                >
+                                    {showDetailPJ ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                </button>
+                            </div>
+
+                            {showDetailPJ && (
+                                <div className="mt-6 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    <LineItem label="Faturamento bruto" value={pj.bruto} />
+                                    <LineItem label={`(-) Impostos (${Math.round(aliquotaImposto * 100)}%)`} value={pj.imposto} positive={false} indent />
+                                    <LineItem label="(-) INSS Pró-labore (11%)" value={pj.inss} positive={false} indent />
+                                    <LineItem label="(-) Honorários Contábeis" value={pj.contador} positive={false} indent />
+                                    <LineItem label="= Líquido Final PJ" value={pj.total} highlight />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Verdict Card */}
+                <div className={`mt-10 rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 border transition-all ${
+                    tied ? 'bg-white/5 border-white/10' :
+                    pjWins ? 'bg-[#C8973A]/10 border-[#C8973A]/30' : 'bg-blue-500/5 border-blue-500/20'
+                }`}>
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 ${
+                        tied ? 'bg-white/5' : pjWins ? 'bg-[#C8973A]/20' : 'bg-blue-500/10'
+                    }`}>
+                        {tied ? <Minus className="text-slate-500" size={32} /> :
+                         pjWins ? <TrendingUp className="text-[#C8973A]" size={32} /> :
+                         <TrendingDown className="text-blue-400" size={32} />}
+                    </div>
+
+                    <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-xl md:text-2xl font-bold mb-2 font-display">
+                            {tied ? "Os cenários são equivalentes" :
+                             pjWins ? "O modelo PJ é mais vantajoso" : "O modelo CLT é mais vantajoso"}
+                        </h3>
+                        <p className="text-sm md:text-base text-[var(--text-muted)]">
+                            {tied ? "A diferença é mínima. Considere outros fatores como estabilidade e flexibilidade." :
+                             pjWins ? `Você teria um ganho real de ${fmt(Math.abs(diff))} a mais por mês no modelo PJ.` :
+                             `Você teria um ganho real de ${fmt(Math.abs(diff))} a mais por mês no modelo CLT.`}
+                        </p>
+                    </div>
+
                     {pjMinimoEquivalente && (
-                        <div className="text-left md:text-right md:border-left border-t md:border-t-0 pt-4 md:pt-0 md:pl-5" style={{ borderColor: "rgba(200,151,58,0.1)" }}>
-                            <div style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>
-                                PJ mínimo para igualar
-                            </div>
-                            <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8973A", fontFamily: "var(--font-display)" }}>
-                                {fmt(pjMinimoEquivalente)}
-                            </div>
-                            <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>
-                                {((pjMinimoEquivalente / salarioBruto - 1) * 100).toFixed(0)}% acima do CLT bruto
+                        <div className="text-center md:text-right border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-10 shrink-0 w-full md:w-auto">
+                            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">PJ mínimo equivalente</div>
+                            <div className="text-2xl md:text-3xl font-bold text-[#C8973A] font-display">{fmt(pjMinimoEquivalente)}</div>
+                            <div className="text-[10px] font-medium text-slate-500 mt-1">
+                                {((pjMinimoEquivalente / salarioBruto - 1) * 100).toFixed(0)}% maior que o salário bruto
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* Info footer */}
-                <div
-                    style={{
-                        marginTop: "16px",
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: "8px",
-                        padding: "12px 16px",
-                        borderRadius: "10px",
-                        background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(255,255,255,0.05)",
-                    }}
-                >
-                    <Info size={14} color="var(--accent)" style={{ marginTop: "2px", flexShrink: 0 }} />
-                    <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0, lineHeight: 1.6 }}>
-                        Cálculo baseado na tabela INSS e IRRF 2024. O FGTS (8%) é pago pelo empregador e incluído como benefício. O PJ não considera plano de saúde, VR/VT e outros benefícios — compare esses custos separadamente. Valores estimativos; consulte nossos especialistas para uma análise personalizada.
+                <div className="mt-8 flex items-start gap-3 p-5 bg-white/3 border border-white/5 rounded-2xl">
+                    <Info className="w-5 h-5 text-[#C8973A] shrink-0 mt-0.5" />
+                    <p className="text-xs leading-relaxed text-[var(--text-muted)]">
+                        Este cálculo utiliza a tabela de IRRF e INSS vigente em 2024. No modelo CLT, incluímos o proporcional de férias e 13º para uma comparação anualizada justa.
+                        No modelo PJ, os valores podem variar conforme o Anexo do Simples Nacional ou Fator R. Consulte nossos especialistas para uma análise detalhada.
                     </p>
                 </div>
             </div>

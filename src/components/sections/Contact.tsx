@@ -5,7 +5,7 @@ import { Send, Phone, Mail, MapPin, Loader2, CheckCircle, ArrowUpRight } from 'l
 import { useLeads } from '@/hooks/useLeads';
 
 const contactInfo = [
-  { icon: Phone, label: "Telefone", value: "(11) 94747-0884", href: "tel:+5511947470884" },
+  { icon: Phone, label: "WhatsApp / Telefone", value: "(11) 94747-0884", href: "https://wa.me/5511947470884" },
   { icon: Mail, label: "E-mail", value: "vma.contabil@gmail.com", href: "mailto:vma.contabil@gmail.com" },
   { icon: MapPin, label: "Endereço", value: "R. Harold Loyd, 198, Sl 7 — Vargem Gde. Paulista, SP", href: "#" },
 ];

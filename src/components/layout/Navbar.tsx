@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { Logo } from '@/components/ui/Logo';
+import Image from 'next/image';
 
 const navLinks = [
   { href: '#inicio', label: 'Início' },
@@ -36,19 +38,8 @@ export const Navbar = () => {
             
             {/* Left: Logo */}
             <div className="flex justify-start">
-              <a href="#inicio" className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm"
-                  style={{ background: 'linear-gradient(135deg, #C8973A, #E8B45A)', color: '#0A1628' }}>
-                  VMA
-                </div>
-                <div className="hidden sm:block">
-                  <div style={{ color: 'var(--foreground)', fontWeight: 'bold', fontSize: '14px', fontFamily: 'var(--font-display)' }}>
-                    VMA
-                  </div>
-                  <div className="text-[10px] uppercase tracking-widest leading-tight" style={{ color: 'var(--text-muted)' }}>
-                    Contabilidade
-                  </div>
-                </div>
+              <a href="#inicio" className="flex items-center gap-3 group">
+                <Logo className="relative w-36 h-10 md:w-44 md:h-14 transition-transform duration-300 group-hover:scale-105" priority />
               </a>
             </div>
 
@@ -74,7 +65,7 @@ export const Navbar = () => {
                   <Phone className="w-4 h-4" style={{ color: '#C8973A' }} />
                   <span className="hidden lg:inline">(11) 94747-0884</span>
                 </a>
-                <a href="#contato" className="btn-primary px-5 py-2.5 text-sm whitespace-nowrap">
+                <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-sm whitespace-nowrap">
                   Falar Conosco
                 </a>
               </div>
@@ -102,7 +93,7 @@ export const Navbar = () => {
       >
         <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.7)' }} onClick={() => setMobileOpen(false)} />
         <div
-          className="absolute top-0 right-0 bottom-0 w-72 p-8 flex flex-col gap-8"
+          className="absolute top-0 right-0 bottom-0 w-[280px] p-8 flex flex-col"
           style={{
             background: 'var(--background)',
             borderLeft: '1px solid rgba(200,151,58,0.15)',
@@ -110,7 +101,12 @@ export const Navbar = () => {
             transition: 'transform 0.3s ease',
           }}
         >
-          <div className="mt-12 flex flex-col gap-6">
+          {/* Logo in Drawer */}
+          <div className="flex justify-start mb-8">
+            <Logo className="relative w-32 h-10" />
+          </div>
+
+          <div className="flex flex-col gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -123,7 +119,7 @@ export const Navbar = () => {
               </a>
             ))}
           </div>
-          <a href="#contato" onClick={() => setMobileOpen(false)} className="btn-primary px-6 py-3 text-center text-sm mt-auto">
+          <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} className="btn-primary px-6 py-3 text-center text-sm mt-auto">
             Falar Conosco
           </a>
         </div>

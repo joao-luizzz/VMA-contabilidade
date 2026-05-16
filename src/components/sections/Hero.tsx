@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
+import Image from 'next/image';
 
 const stats = [
   { value: '+150', label: 'Clientes Ativos' },
@@ -37,7 +39,7 @@ export const Hero = () => {
               Excelência em Contabilidade Estratégica
             </div>
 
-            <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight opacity-0 reveal stagger-1" style={{ color: 'var(--foreground)' }}>
+            <h1 className="text-4xl md:text-6xl xl:text-7xl font-bold leading-[1.1] md:leading-[1.05] tracking-tight opacity-0 reveal stagger-1" style={{ color: 'var(--foreground)' }}>
               Sua empresa{' '}
               <span className="text-gradient">crescendo</span>{' '}
               com segurança fiscal.
@@ -48,7 +50,7 @@ export const Hero = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2 opacity-0 reveal stagger-3">
-              <a href="#contato" className="btn-primary px-8 py-4 flex items-center gap-2 text-sm">
+              <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-4 flex items-center gap-2 text-sm">
                 Falar com Especialista
                 <ArrowRight className="w-4 h-4" />
               </a>
@@ -80,12 +82,10 @@ export const Hero = () => {
                   border: '1px solid rgba(200,151,58,0.2)',
                   boxShadow: '0 32px 64px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
                 }}>
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center"
-                  style={{ background: 'rgba(200,151,58,0.15)' }}>
-                  <ShieldCheck className="w-8 h-8" style={{ color: '#C8973A' }} />
+                <div className="mb-6 opacity-80">
+                  <div className="w-12 h-1 mx-auto rounded-full bg-gradient-to-r from-transparent via-[#C8973A] to-transparent opacity-30" />
                 </div>
-                <div className="text-5xl font-bold mb-1 text-gradient font-display">VMA</div>
-                <div className="text-xs uppercase tracking-[0.4em]" style={{ color: 'var(--text-muted)' }}>Contabilidade</div>
+                <Logo className="relative w-40 h-16 mx-auto mb-2" />
 
                 <div className="mt-8 grid grid-cols-2 gap-4">
                   {stats.slice(0, 2).map((s, i) => (
