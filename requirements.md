@@ -6,6 +6,8 @@
 |:---|:---|:---|:---|:---|
 | **RF01** | Landing Page Institucional | Exibir informações sobre a VMA, incluindo seções de Hero, Serviços, Sobre e Rodapé. | Visitante | Alta |
 | **RF02** | Catálogo de Serviços | Listar especialidades contábeis com descrições claras e ícones representativos. | Visitante | Alta |
+| **RF11** | Calculadora CLT vs PJ | Ferramenta para comparar rendimentos líquidos entre regimes CLT e PJ. | Visitante | Alta |
+| **RF12** | Calendário Fiscal | Visualização de datas recorrentes de obrigações (Dia 10 e 20). | Visitante | Alta |
 | **RF03** | Formulário de Contato (Lead) | Permitir que interessados enviem nome, e-mail, telefone e mensagem. | Visitante | Alta |
 | **RF04** | Persistência de Leads | Salvar automaticamente os dados do formulário no banco de dados com status "NOVO". | Sistema | Alta |
 | **RF05** | Autenticação Administrativa | Permitir login de funcionários da VMA para acessar a área restrita. | Admin | Alta |

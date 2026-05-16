@@ -37,6 +37,7 @@ O projeto está em fase ativa de desenvolvimento, com a fundação e o fluxo pri
 - [x] **Interface Premium:** Landing page completa com design moderno e responsivo.
 - [x] **Componentização:** Navbar, Hero, Services, Contact e Footer modulares.
 - [x] **Captação de Leads:** Integração funcional com banco de dados via Supabase (Hook `useLeads`).
+- [x] **Recursos Úteis:** Calculadora CLT vs PJ e Calendário Fiscal implementados.
 - [x] **Identidade Visual:** Design system baseado em cores sóbrias e tipografia premium.
 - [ ] **Painel Administrativo:** Dashboard para gestão interna dos leads e solicitações.
 - [ ] **Sistema de Autenticação:** Acesso seguro para administradores.
@@ -69,6 +70,8 @@ O projeto está em fase ativa de desenvolvimento, com a fundação e o fluxo pri
 ### Área Institucional
 - **Hero Dinâmico:** Apresentação de alto impacto visual com foco em conversão.
 - **Catálogo de Serviços:** Exposição detalhada das especialidades (Assessoria, Planejamento, RH, etc.).
+- **Calculadora CLT vs PJ:** Ferramenta interativa de comparação de rendimentos.
+- **Calendário Fiscal:** Visualização clara das datas de obrigações recorrentes (Dia 10 e 20).
 - **Formulário Inteligente:** Captura de leads com validação em tempo real e feedback de status.
 
 ### Integrações
