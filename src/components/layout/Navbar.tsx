@@ -34,13 +34,15 @@ export const Navbar = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 items-center h-18 py-4">
-            
+          <div className="grid grid-cols-2 md:grid-cols-3 items-center h-24 py-2">
             {/* Left: Logo */}
             <div className="flex justify-start">
               <a href="#inicio" className="flex items-center gap-3 group">
-                <Logo className="relative w-36 h-10 md:w-44 md:h-14 transition-transform duration-300 group-hover:scale-105" priority />
-              </a>
+                <Logo
+                  className="relative w-48 h-24 md:w-64 md:h-28 transition-transform duration-300 group-hover:scale-105"
+                  priority
+                  align="left"
+                />              </a>
             </div>
 
             {/* Center: Desktop nav */}
@@ -58,7 +60,7 @@ export const Navbar = () => {
             </nav>
 
             {/* Right: CTA, Theme Toggle & Mobile Toggle */}
-            <div className="flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-3 md:gap-4">
               <div className="hidden md:flex items-center gap-4">
                 <ThemeToggle />
                 <a href="tel:+5511947470884" className="flex items-center gap-1.5 text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
@@ -68,6 +70,11 @@ export const Navbar = () => {
                 <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-sm whitespace-nowrap">
                   Falar Conosco
                 </a>
+              </div>
+
+              {/* Mobile theme toggle */}
+              <div className="md:hidden flex items-center">
+                <ThemeToggle />
               </div>
 
               {/* Mobile toggle button */}
@@ -85,15 +92,15 @@ export const Navbar = () => {
 
       {/* Mobile drawer */}
       <div
-        className="fixed inset-0 z-40 md:hidden transition-all duration-300"
+        className="fixed inset-0 z-[100] md:hidden transition-all duration-300"
         style={{
           opacity: mobileOpen ? 1 : 0,
           pointerEvents: mobileOpen ? 'auto' : 'none',
         }}
       >
-        <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.7)' }} onClick={() => setMobileOpen(false)} />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
         <div
-          className="absolute top-0 right-0 bottom-0 w-[280px] p-8 flex flex-col"
+          className="absolute top-0 right-0 bottom-0 w-[300px] p-6 flex flex-col"
           style={{
             background: 'var(--background)',
             borderLeft: '1px solid rgba(200,151,58,0.15)',
@@ -101,9 +108,20 @@ export const Navbar = () => {
             transition: 'transform 0.3s ease',
           }}
         >
-          {/* Logo in Drawer */}
-          <div className="flex justify-start mb-8">
-            <Logo className="relative w-32 h-10" />
+          {/* Header do Drawer */}
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#C8973A]/10">
+            <Logo className="relative w-36 h-12" align="left" />
+            <div className="flex items-center gap-1">
+              <ThemeToggle />
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="p-2 rounded-xl transition-all duration-300 hover:bg-accent/10"
+                style={{ color: 'var(--text-muted)' }}
+                aria-label="Fechar menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-6">

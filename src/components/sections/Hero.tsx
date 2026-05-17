@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const stats = [
   { value: '+150', label: 'Clientes Ativos' },
-  { value: '15+', label: 'Anos de Mercado' },
+  { value: '12+', label: 'Anos de Mercado' },
   { value: '98%', label: 'Satisfação' },
   { value: 'R$50M+', label: 'Em Economia Fiscal' },
 ];
@@ -85,7 +85,7 @@ export const Hero = () => {
                 <div className="mb-6 opacity-80">
                   <div className="w-12 h-1 mx-auto rounded-full bg-gradient-to-r from-transparent via-[#C8973A] to-transparent opacity-30" />
                 </div>
-                <Logo className="relative w-40 h-16 mx-auto mb-2" />
+                <Logo className="relative w-40 h-16 mx-auto mb-2" align="center" />
 
                 <div className="mt-8 grid grid-cols-2 gap-4">
                   {stats.slice(0, 2).map((s, i) => (
@@ -114,7 +114,7 @@ export const Hero = () => {
                   border: '1px solid rgba(200,151,58,0.25)',
                   boxShadow: '0 16px 32px rgba(0,0,0,0.1)'
                 }}>
-                <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>15+</div>
+                <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>12+</div>
                 <div className="text-[10px] font-medium uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Anos de Exp.</div>
               </div>
             </div>

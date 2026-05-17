@@ -6,16 +6,18 @@ import { useTheme } from 'next-themes';
 
 interface LogoProps {
   className?: string;
-  width?: number;
-  height?: number;
   priority?: boolean;
+  align?: 'left' | 'center' | 'right';
 }
 
-export const Logo = ({ className = "relative w-32 h-12", width, height, priority = false }: LogoProps) => {
+export const Logo = ({
+  className = "relative w-52 h-24",
+  priority = false,
+  align = 'left'
+}: LogoProps) => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -24,8 +26,11 @@ export const Logo = ({ className = "relative w-32 h-12", width, height, priority
     return <div className={className} />;
   }
 
+  // Ensure you actually have a light version, otherwise both show the dark logo
   const isDark = resolvedTheme === 'dark';
-  const logoSrc = isDark ? '/images/logo-dark.png' : '/images/logo-vma.jpg';
+  const logoSrc = isDark ? '/images/logo.png' : '/images/logo.png';
+
+  const alignClass = align === 'left' ? 'object-left' : align === 'right' ? 'object-right' : 'object-center';
 
   return (
     <div className={className}>
@@ -33,11 +38,10 @@ export const Logo = ({ className = "relative w-32 h-12", width, height, priority
         src={logoSrc}
         alt="VMA Contabilidade"
         fill
-        className="object-contain"
+        sizes="(max-width: 768px) 250px, 400px"
+        className={`object-contain ${alignClass}`}
         priority={priority}
       />
     </div>
   );
 };
-
-

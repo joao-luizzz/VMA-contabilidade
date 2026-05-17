@@ -56,7 +56,7 @@ const fallbackTestimonials: Testimonial[] = [
 const stats = [
     { number: "+500", label: "Clientes Ativos" },
     { number: "98%", label: "Satisfação" },
-    { number: "15 anos", label: "Experiência" },
+    { number: "12 anos", label: "Experiência" },
     { number: "24/7", label: "Suporte" }
 ]
 

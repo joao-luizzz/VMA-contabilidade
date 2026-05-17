@@ -68,17 +68,17 @@ const LineItem = ({ label, value, positive = true, indent = false, highlight = f
 // ─── Main component ──────────────────────────────────────────────────────────
 export const CltPjCalculator = () => {
     // CLT inputs
-    const [salarioBruto, setSalarioBruto] = useState(8000);
-    const [vr, setVr] = useState(600);
-    const [vt, setVt] = useState(200);
-    const [planoSaude, setPlanoSaude] = useState(400);
+    const [salarioBruto, setSalarioBruto] = useState(0);
+    const [vr, setVr] = useState(0);
+    const [vt, setVt] = useState(0);
+    const [planoSaude, setPlanoSaude] = useState(0);
     const [outrosBeneficios, setOutrosBeneficios] = useState(0);
 
     // PJ inputs
     const [aliquotaImposto, setAliquotaImposto] = useState(0.15);
-    const [pctProlabore, setPctProlabore] = useState(30);
-    const [custoContador, setCustoContador] = useState(300);
-    const [salarioBrutoPJ, setSalarioBrutoPJ] = useState(12000);
+    const [pctProlabore, setPctProlabore] = useState(0);
+    const [custoContador, setCustoContador] = useState(0);
+    const [salarioBrutoPJ, setSalarioBrutoPJ] = useState(0);
 
     const [showDetailCLT, setShowDetailCLT] = useState(false);
     const [showDetailPJ, setShowDetailPJ] = useState(false);
@@ -372,27 +372,25 @@ export const CltPjCalculator = () => {
                 </div>
 
                 {/* Verdict Card */}
-                <div className={`mt-10 rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 border transition-all ${
-                    tied ? 'bg-white/5 border-white/10' :
+                <div className={`mt-10 rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 border transition-all ${tied ? 'bg-white/5 border-white/10' :
                     pjWins ? 'bg-[#C8973A]/10 border-[#C8973A]/30' : 'bg-blue-500/5 border-blue-500/20'
-                }`}>
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 ${
-                        tied ? 'bg-white/5' : pjWins ? 'bg-[#C8973A]/20' : 'bg-blue-500/10'
                     }`}>
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 ${tied ? 'bg-white/5' : pjWins ? 'bg-[#C8973A]/20' : 'bg-blue-500/10'
+                        }`}>
                         {tied ? <Minus className="text-slate-500" size={32} /> :
-                         pjWins ? <TrendingUp className="text-[#C8973A]" size={32} /> :
-                         <TrendingDown className="text-blue-400" size={32} />}
+                            pjWins ? <TrendingUp className="text-[#C8973A]" size={32} /> :
+                                <TrendingDown className="text-blue-400" size={32} />}
                     </div>
 
                     <div className="flex-1 text-center md:text-left">
                         <h3 className="text-xl md:text-2xl font-bold mb-2 font-display">
                             {tied ? "Os cenários são equivalentes" :
-                             pjWins ? "O modelo PJ é mais vantajoso" : "O modelo CLT é mais vantajoso"}
+                                pjWins ? "O modelo PJ é mais vantajoso" : "O modelo CLT é mais vantajoso"}
                         </h3>
                         <p className="text-sm md:text-base text-[var(--text-muted)]">
                             {tied ? "A diferença é mínima. Considere outros fatores como estabilidade e flexibilidade." :
-                             pjWins ? `Você teria um ganho real de ${fmt(Math.abs(diff))} a mais por mês no modelo PJ.` :
-                             `Você teria um ganho real de ${fmt(Math.abs(diff))} a mais por mês no modelo CLT.`}
+                                pjWins ? `Você teria um ganho real de ${fmt(Math.abs(diff))} a mais por mês no modelo PJ.` :
+                                    `Você teria um ganho real de ${fmt(Math.abs(diff))} a mais por mês no modelo CLT.`}
                         </p>
                     </div>
 

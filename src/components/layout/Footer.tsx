@@ -18,7 +18,7 @@ export const Footer = () => {
           {/* Brand col */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3 group">
-              <Logo className="relative w-44 h-14 transition-transform duration-300 group-hover:scale-105" />
+              <Logo className="relative w-52 h-16 transition-transform duration-300 group-hover:scale-105" />
             </div>
 
             <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)', fontWeight: 400, maxWidth: '280px' }}>

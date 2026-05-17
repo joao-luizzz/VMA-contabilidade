@@ -89,7 +89,7 @@ export const Contact = () => {
                   <div className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: 'var(--text-muted)' }}>
                     {item.label}
                   </div>
-                  <div className="font-semibold text-sm truncate" style={{ color: 'var(--foreground)' }}>{item.value}</div>
+                  <div className="font-semibold text-sm whitespace-normal break-words" style={{ color: 'var(--foreground)' }}>{item.value}</div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: '#C8973A' }} />
               </a>
@@ -115,7 +115,7 @@ export const Contact = () => {
           </div>
 
           {/* Right: form */}
-          <div className="lg:col-span-3 rounded-2xl p-8 md:p-10"
+          <div className="lg:col-span-3 rounded-2xl p-6 sm:p-8 md:p-10"
             style={{
               background: 'var(--surface)',
               border: '1px solid rgba(200, 151, 58, 0.1)',
