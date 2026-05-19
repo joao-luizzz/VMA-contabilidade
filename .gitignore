@@ -14,7 +14,7 @@
 /coverage
 
 .git1/
-
+git/
 
 # next.js
 /.next/
