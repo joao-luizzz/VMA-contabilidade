@@ -13,7 +13,7 @@ interface TestimonialPillProps {
 export function TestimonialPill({ testimonial, index, style }: TestimonialPillProps) {
     return (
         <motion.div
-            className="pill relative backdrop-blur-md rounded-2xl px-6 py-4 shadow-lg border w-[320px] min-h-[140px] flex flex-col justify-center cursor-pointer group transition-colors duration-300"
+            className="pill relative backdrop-blur-md rounded-2xl px-6 py-4 shadow-lg border w-[280px] sm:w-[320px] min-h-[140px] flex flex-col justify-center cursor-pointer group transition-colors duration-300"
             style={{
                 ...style,
                 backgroundColor: 'var(--surface)',

@@ -5,23 +5,61 @@ import { Menu, X, Phone } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Logo } from '@/components/ui/Logo';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 const navLinks = [
   { href: '#inicio', label: 'Início' },
   { href: '#servicos', label: 'Serviços' },
   { href: '#sobre', label: 'Sobre' },
   { href: '#contato', label: 'Contato' },
+  { href: '/upload', label: 'Enviar Documentos' },
 ];
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const pathname = usePathname();
+
+  const isHome = pathname === '/' || pathname === '';
+
+  const getHref = (href: string) => {
+    if (href.startsWith('#')) {
+      return isHome ? href : `/${href}`;
+    }
+    return href;
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!supabase) return;
+    
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  };
 
   return (
     <>
@@ -37,7 +75,7 @@ export const Navbar = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 items-center h-24 py-2">
             {/* Left: Logo */}
             <div className="flex justify-start">
-              <a href="#inicio" className="flex items-center gap-3 group">
+              <a href={getHref('#inicio')} className="flex items-center gap-3 group">
                 <Logo
                   className="relative w-48 h-24 md:w-64 md:h-28 transition-transform duration-300 group-hover:scale-105"
                   priority
@@ -50,7 +88,7 @@ export const Navbar = () => {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={getHref(link.href)}
                   className="text-sm font-medium transition-colors hover:text-[#C8973A]"
                   style={{ color: 'var(--text-muted)' }}
                 >
@@ -67,9 +105,19 @@ export const Navbar = () => {
                   <Phone className="w-4 h-4" style={{ color: '#C8973A' }} />
                   <span className="hidden lg:inline">(11) 94747-0884</span>
                 </a>
-                <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-sm whitespace-nowrap">
-                  Falar Conosco
-                </a>
+                {user ? (
+                  <button 
+                    onClick={handleLogout} 
+                    className="btn-outline px-5 py-2.5 text-sm cursor-pointer hover:bg-red-500/10 hover:border-red-500 hover:text-red-400"
+                    style={{ borderColor: 'rgba(239, 68, 68, 0.2)' }}
+                  >
+                    Sair
+                  </button>
+                ) : (
+                  <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5 text-sm whitespace-nowrap">
+                    Falar Conosco
+                  </a>
+                )}
               </div>
 
               {/* Mobile theme toggle */}
@@ -128,7 +176,7 @@ export const Navbar = () => {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={getHref(link.href)}
                 onClick={() => setMobileOpen(false)}
                 className="text-lg font-semibold hover:text-[var(--primary)] transition-colors"
                 style={{ color: 'var(--foreground)' }}
@@ -137,9 +185,22 @@ export const Navbar = () => {
               </a>
             ))}
           </div>
-          <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} className="btn-primary px-6 py-3 text-center text-sm mt-auto">
-            Falar Conosco
-          </a>
+          {user ? (
+            <button 
+              onClick={() => {
+                setMobileOpen(false);
+                handleLogout();
+              }}
+              className="btn-outline px-6 py-3 text-center text-sm mt-auto hover:bg-red-500/10 hover:border-red-500 hover:text-red-400 cursor-pointer"
+              style={{ borderColor: 'rgba(239, 68, 68, 0.2)' }}
+            >
+              Sair da Conta
+            </button>
+          ) : (
+            <a href="https://wa.me/5511947470884" target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} className="btn-primary px-6 py-3 text-center text-sm mt-auto">
+              Falar Conosco
+            </a>
+          )}
         </div>
       </div>
     </>

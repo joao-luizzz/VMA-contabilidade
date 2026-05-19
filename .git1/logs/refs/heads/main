@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 81750a9384f8a362aecea317ee44072fb88c0a79 lucachak <lucas.lucachak9@gmail.com> 1778964378 +0100	commit (initial): first commit
+81750a9384f8a362aecea317ee44072fb88c0a79 81750a9384f8a362aecea317ee44072fb88c0a79 lucachak <lucas.lucachak9@gmail.com> 1778964378 +0100	Branch: renamed refs/heads/main to refs/heads/main
+81750a9384f8a362aecea317ee44072fb88c0a79 87b44c4aacb54d70c27f6cc653fb52456aaf6c09 lucachak <lucas.lucachak9@gmail.com> 1778964416 +0100	commit: second phase
+87b44c4aacb54d70c27f6cc653fb52456aaf6c09 e888066cf8d32c6cfbd9778bc8cba06808fe1c9f lucachak <lucas.lucachak9@gmail.com> 1778964631 +0100	commit: update
+e888066cf8d32c6cfbd9778bc8cba06808fe1c9f d343c6e0594dc7df16c2a02a5922e1f840a1f558 lucachak <lucas.lucachak9@gmail.com> 1778981038 +0100	commit: UI/UX fixes
+d343c6e0594dc7df16c2a02a5922e1f840a1f558 77e53a346e983361f978a0bd67dc48218b6b2354 lucachak <lucas.lucachak9@gmail.com> 1778982474 +0100	commit: fix calculator
+77e53a346e983361f978a0bd67dc48218b6b2354 8ded5345879a7d6401315ffdf7f8b495da8ae585 lucachak <lucas.lucachak9@gmail.com> 1778982763 +0100	commit: fix calculator
+8ded5345879a7d6401315ffdf7f8b495da8ae585 7451a7d9f083255d24926d992f34800ded0f465e lucachak <lucas.lucachak9@gmail.com> 1779039270 +0100	commit: finishing
+7451a7d9f083255d24926d992f34800ded0f465e f3315cf100e46d0303f6e8ed074df4351564be39 lucachak <lucas.lucachak9@gmail.com> 1779206159 +0100	commit: pdf section, and user too

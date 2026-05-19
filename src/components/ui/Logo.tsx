@@ -26,7 +26,6 @@ export const Logo = ({
     return <div className={className} />;
   }
 
-  // Ensure you actually have a light version, otherwise both show the dark logo
   const isDark = resolvedTheme === 'dark';
   const logoSrc = isDark ? '/images/logo.png' : '/images/logo.png';
 

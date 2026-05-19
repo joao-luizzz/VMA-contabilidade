@@ -67,43 +67,58 @@ const LineItem = ({ label, value, positive = true, indent = false, highlight = f
 
 // ─── Main component ──────────────────────────────────────────────────────────
 export const CltPjCalculator = () => {
-    // CLT inputs
-    const [salarioBruto, setSalarioBruto] = useState(0);
-    const [vr, setVr] = useState(0);
-    const [vt, setVt] = useState(0);
-    const [planoSaude, setPlanoSaude] = useState(0);
-    const [outrosBeneficios, setOutrosBeneficios] = useState(0);
+    // CLT inputs - Alterados para aceitar números ou vazio
+    const [salarioBruto, setSalarioBruto] = useState<number | "">("");
+    const [vr, setVr] = useState<number | "">("");
+    const [vt, setVt] = useState<number | "">("");
+    const [planoSaude, setPlanoSaude] = useState<number | "">("");
+    const [outrosBeneficios, setOutrosBeneficios] = useState<number | "">("");
 
     // PJ inputs
-    const [aliquotaImposto, setAliquotaImposto] = useState(0.15);
-    const [pctProlabore, setPctProlabore] = useState(0);
-    const [custoContador, setCustoContador] = useState(0);
-    const [salarioBrutoPJ, setSalarioBrutoPJ] = useState(0);
+    const [aliquotaImposto, setAliquotaImposto] = useState<number>(0.15); // Valores fixos do select, não precisa ficar vazio
+    const [pctProlabore, setPctProlabore] = useState<number>(0); // Range slider, não precisa ficar vazio
+    const [custoContador, setCustoContador] = useState<number | "">("");
+    const [salarioBrutoPJ, setSalarioBrutoPJ] = useState<number | "">("");
 
     const [showDetailCLT, setShowDetailCLT] = useState(false);
     const [showDetailPJ, setShowDetailPJ] = useState(false);
 
+    // Função auxiliar para lidar com a digitação nos inputs
+    const handleNumberChange = (value: string, setter: React.Dispatch<React.SetStateAction<number | "">>) => {
+        if (value === "") {
+            setter("");
+        } else {
+            setter(Number(value));
+        }
+    };
+
     // ─── CLT CALCULATION ──────────────────────────────────────────────────────
     const clt = useMemo(() => {
-        const bruto = salarioBruto;
+        // Garantindo que, se o campo estiver vazio, o cálculo usará 0
+        const bruto = Number(salarioBruto) || 0;
+        const valVr = Number(vr) || 0;
+        const valVt = Number(vt) || 0;
+        const valPlanoSaude = Number(planoSaude) || 0;
+        const valOutros = Number(outrosBeneficios) || 0;
+
         const inss = calcINSS(bruto);
         const baseIR = bruto - inss;
         const irrf = Math.max(0, calcIRRF(baseIR));
         const liquido = bruto - inss - irrf;
 
         // Férias + 1/3 líquidas (sobre bruto)
-        const feriasBruto = bruto * (1 / 3 + 1) * (1 / 12); // 1 mês de férias + 1/3, diluído em 12
+        const feriasBruto = bruto * (1 / 3 + 1) * (1 / 12);
         const inssFerias = calcINSS(feriasBruto);
         const irrfFerias = Math.max(0, calcIRRF(feriasBruto - inssFerias));
         const feriasLiq = (feriasBruto - inssFerias - irrfFerias);
 
-        // 13º líquido (metade do salário líquido / 12 * 12 = salário líquido / 2 anual → /12 mensal)
+        // 13º líquido
         const decimoTerceiro = liquido / 12;
 
         // FGTS 8%
         const fgts = bruto * 0.08;
 
-        const beneficios = vr + vt + planoSaude + outrosBeneficios;
+        const beneficios = valVr + valVt + valPlanoSaude + valOutros;
 
         const total = liquido + feriasLiq + decimoTerceiro + fgts + beneficios;
 
@@ -116,30 +131,33 @@ export const CltPjCalculator = () => {
             decimoTerceiro,
             fgts,
             beneficios,
-            vr,
-            vt,
-            planoSaude,
-            outrosBeneficios,
+            vr: valVr,
+            vt: valVt,
+            planoSaude: valPlanoSaude,
+            outrosBeneficios: valOutros,
             total,
         };
     }, [salarioBruto, vr, vt, planoSaude, outrosBeneficios]);
 
     // ─── PJ CALCULATION ───────────────────────────────────────────────────────
     const pj = useMemo(() => {
-        const bruto = salarioBrutoPJ;
+        // Garantindo que valores vazios virem 0 no cálculo
+        const bruto = Number(salarioBrutoPJ) || 0;
+        const contador = Number(custoContador) || 0;
+
         const imposto = bruto * aliquotaImposto;
         const prolaboreBase = bruto * (pctProlabore / 100);
         const inss = prolaboreBase * 0.11;
-        const contador = custoContador;
         const total = bruto - imposto - inss - contador;
 
         return { bruto, imposto, inss, prolaboreBase, contador, total };
     }, [salarioBrutoPJ, aliquotaImposto, pctProlabore, custoContador]);
 
     const pjMinimoEquivalente = useMemo(() => {
+        const contador = Number(custoContador) || 0;
         const coef = 1 - aliquotaImposto - (pctProlabore / 100) * 0.11;
         if (coef <= 0) return null;
-        return (clt.total + custoContador) / coef;
+        return (clt.total + contador) / coef;
     }, [clt.total, aliquotaImposto, pctProlabore, custoContador]);
 
     const diff = pj.total - clt.total;
@@ -192,7 +210,7 @@ export const CltPjCalculator = () => {
                                         <input
                                             type="number"
                                             value={salarioBruto}
-                                            onChange={(e) => setSalarioBruto(Number(e.target.value))}
+                                            onChange={(e) => handleNumberChange(e.target.value, setSalarioBruto)}
                                             className="w-full bg-[var(--background)] border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:border-[#C8973A] outline-none transition-colors"
                                         />
                                     </div>
@@ -219,7 +237,7 @@ export const CltPjCalculator = () => {
                                                     <input
                                                         type="number"
                                                         value={val}
-                                                        onChange={(e) => set(Number(e.target.value))}
+                                                        onChange={(e) => handleNumberChange(e.target.value, set)}
                                                         className="w-full bg-[var(--background)] border border-white/5 rounded-lg py-2 pl-8 pr-3 text-xs focus:border-[#C8973A] outline-none transition-colors"
                                                     />
                                                 </div>
@@ -284,7 +302,7 @@ export const CltPjCalculator = () => {
                                         <input
                                             type="number"
                                             value={salarioBrutoPJ}
-                                            onChange={(e) => setSalarioBrutoPJ(Number(e.target.value))}
+                                            onChange={(e) => handleNumberChange(e.target.value, setSalarioBrutoPJ)}
                                             className="w-full bg-[var(--background)] border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:border-[#C8973A] outline-none transition-colors"
                                         />
                                     </div>
@@ -333,7 +351,7 @@ export const CltPjCalculator = () => {
                                                 <input
                                                     type="number"
                                                     value={custoContador}
-                                                    onChange={(e) => setCustoContador(Number(e.target.value))}
+                                                    onChange={(e) => handleNumberChange(e.target.value, setCustoContador)}
                                                     className="w-full bg-[var(--background)] border border-white/5 rounded-lg py-2 pl-8 pr-3 text-xs focus:border-[#C8973A] outline-none transition-colors"
                                                 />
                                             </div>
@@ -394,12 +412,12 @@ export const CltPjCalculator = () => {
                         </p>
                     </div>
 
-                    {pjMinimoEquivalente && (
+                    {pjMinimoEquivalente && Number(salarioBruto) > 0 && (
                         <div className="text-center md:text-right border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-10 shrink-0 w-full md:w-auto">
                             <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">PJ mínimo equivalente</div>
                             <div className="text-2xl md:text-3xl font-bold text-[#C8973A] font-display">{fmt(pjMinimoEquivalente)}</div>
                             <div className="text-[10px] font-medium text-slate-500 mt-1">
-                                {((pjMinimoEquivalente / salarioBruto - 1) * 100).toFixed(0)}% maior que o salário bruto
+                                {(((pjMinimoEquivalente / Number(salarioBruto)) - 1) * 100).toFixed(0)}% maior que o salário bruto
                             </div>
                         </div>
                     )}
